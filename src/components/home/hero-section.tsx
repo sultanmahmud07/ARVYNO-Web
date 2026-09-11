@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Sparkles, Award, ChevronLeft, ChevronRight, Pause, Play, Shirt, Feather } from "lucide-react";
+import { ArrowRight, Sparkles, Award, ChevronLeft, ChevronRight, Shirt, Feather } from "lucide-react";
 
 interface HeroSlide {
   id: string;
@@ -89,7 +89,7 @@ const HERO_SLIDES: HeroSlide[] = [
       { value: "Twin", unit: "Needle", label: "Zero-Sag Collar" },
       { value: "Bio-Wash", unit: "Soft", label: "Pre-Shrunk Texture" },
     ],
-    image: "/images/banners/welcome-tee-banner.png",
+    image: "/images/banners/welcome-tee-banner.jpg",
     imageAlt: "ARVYNO Heavyweight T-Shirt Collection",
     overlayCard: {
       icon: Sparkles,
@@ -132,11 +132,10 @@ const HERO_SLIDES: HeroSlide[] = [
   },
 ];
 
-const AUTO_SLIDE_DURATION = 6000; // 6 seconds per slide
+const AUTO_SLIDE_DURATION = 5500; // 5.5 seconds continuous auto-play
 
 export function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
@@ -156,10 +155,8 @@ export function HeroSection() {
     setProgress(0);
   };
 
-  // Auto-play timer with progress ticker
+  // Continuous uninterrupted auto-play timer (never paused on mouse hover)
   useEffect(() => {
-    if (isPaused) return;
-
     const intervalTime = 50;
     const step = (intervalTime / AUTO_SLIDE_DURATION) * 100;
 
@@ -174,7 +171,7 @@ export function HeroSection() {
     }, intervalTime);
 
     return () => clearInterval(timer);
-  }, [isPaused, nextSlide]);
+  }, [nextSlide]);
 
   // Touch Swipe Handlers for Mobile & Tablet
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -208,21 +205,19 @@ export function HeroSection() {
     <section
       aria-label="Featured Collections Hero Banner"
       className="relative min-h-[85vh] lg:min-h-[90vh] flex flex-col justify-between overflow-hidden bg-[#080808] pt-2 pb-8 sm:pb-10 select-none"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Background Ambient Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#c9a227]/8 rounded-full blur-[160px] pointer-events-none transition-all duration-1000" />
-      <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#e5c76b]/6 rounded-full blur-[140px] pointer-events-none" />
+      {/* Background Animated Ambient Glows */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#c9a227]/10 rounded-full blur-[160px] pointer-events-none animate-float-slow" />
+      <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#e5c76b]/8 rounded-full blur-[140px] pointer-events-none animate-pulse-glow" />
 
       {/* Main Slide Master Frame */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-4 sm:py-6">
         
         {/* Panoramic Banner Card with Smart Dissolve: Right Side Clearly Visible, Left Side Faded */}
-        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#c9a227]/30 shadow-2xl bg-[#0a0a0a] min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] flex items-center group">
+        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#c9a227]/30 shadow-2xl bg-[#0a0a0a] min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] flex items-center group animate-border-breathing">
           
           {/* Background Sliding Images with Right Visibility & Left Dissolve Mask */}
           {HERO_SLIDES.map((slide, index) => (
@@ -238,13 +233,13 @@ export function HeroSection() {
                 fill
                 priority={index === 0}
                 sizes="(max-width: 1024px) 100vw, 1280px"
-                className="object-cover object-right sm:object-[75%_center] lg:object-[80%_center] group-hover:scale-102 transition-transform duration-1000 ease-out"
+                className="object-cover object-right sm:object-[75%_center] lg:object-[80%_center] group-hover:scale-103 transition-transform duration-1000 ease-out"
               />
 
-              {/* Smart Horizontal Dissolve Gradient: Pure solid dark on the left, smooth slow fade, crystal clear on the right */}
+              {/* Smart Horizontal Dissolve Gradient */}
               <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] from-15% via-[#0a0a0a]/95 via-42% via-[#0a0a0a]/50 via-62% to-transparent to-90%" />
               
-              {/* Vertical vignettes for mobile and edge blending */}
+              {/* Vertical vignettes */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/50" />
               <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-transparent to-transparent" />
             </div>
@@ -282,7 +277,7 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
               <Link
                 href={activeSlide.primaryCta.href}
-                className="px-8 py-4 bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black font-bold text-xs uppercase tracking-[0.2em] rounded-xl hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-[#c9a227]/15 group/btn"
+                className="px-8 py-4 bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black font-bold text-xs uppercase tracking-[0.2em] rounded-xl hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-[#c9a227]/15 group/btn gold-shimmer-btn"
               >
                 <span>{activeSlide.primaryCta.label}</span>
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
@@ -312,7 +307,7 @@ export function HeroSection() {
           </div>
 
           {/* Floating Luxury Glass Card Overlay (Bottom Right) */}
-          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 max-w-sm glass-card-gold rounded-xl p-3.5 sm:p-4 hidden md:flex items-center justify-between gap-3.5 z-20 transition-all duration-300 shadow-2xl">
+          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 max-w-sm glass-card-gold rounded-xl p-3.5 sm:p-4 hidden md:flex items-center justify-between gap-3.5 z-20 transition-all duration-300 shadow-2xl hover:scale-102">
             <div className="flex items-center gap-3">
               <div className="p-2 bg-[#c9a227]/20 rounded-lg text-[#c9a227] flex-shrink-0">
                 <CardIcon className="w-4 h-4" />
@@ -339,14 +334,14 @@ export function HeroSection() {
             <button
               onClick={prevSlide}
               aria-label="Previous slide"
-              className="p-2.5 rounded-full bg-black/60 hover:bg-[#c9a227] text-white hover:text-black border border-white/15 hover:border-[#c9a227] backdrop-blur-md transition-all shadow-lg active:scale-95"
+              className="p-2.5 rounded-full bg-black/60 hover:bg-[#c9a227] text-white hover:text-black border border-white/15 hover:border-[#c9a227] backdrop-blur-md transition-all shadow-lg active:scale-95 cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextSlide}
               aria-label="Next slide"
-              className="p-2.5 rounded-full bg-black/60 hover:bg-[#c9a227] text-white hover:text-black border border-white/15 hover:border-[#c9a227] backdrop-blur-md transition-all shadow-lg active:scale-95"
+              className="p-2.5 rounded-full bg-black/60 hover:bg-[#c9a227] text-white hover:text-black border border-white/15 hover:border-[#c9a227] backdrop-blur-md transition-all shadow-lg active:scale-95 cursor-pointer"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -355,11 +350,11 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom Slider Pagination Bar & Progress Line */}
+      {/* Bottom Slider Pagination Bar & Continuous Progress Line */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-2">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#1a1a1a] pt-3">
           
-          {/* Slide Indicators with Progress Bar */}
+          {/* Slide Indicators with Animated Progress Bar */}
           <div className="flex items-center gap-3">
             {HERO_SLIDES.map((slide, idx) => {
               const isActive = idx === currentSlide;
@@ -367,8 +362,8 @@ export function HeroSection() {
                 <button
                   key={slide.id}
                   onClick={() => goToSlide(idx)}
-                  className={`group flex items-center gap-2.5 py-1.5 px-3 rounded-lg transition-all ${
-                    isActive ? "bg-white/5 border border-[#c9a227]/40" : "hover:bg-white/5 border border-transparent"
+                  className={`group flex items-center gap-2.5 py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
+                    isActive ? "bg-white/5 border border-[#c9a227]/40 shadow-sm" : "hover:bg-white/5 border border-transparent"
                   }`}
                   aria-label={`Go to slide ${idx + 1}: ${slide.badgeText}`}
                 >
@@ -394,26 +389,12 @@ export function HeroSection() {
             })}
           </div>
 
-          {/* Pause / Play & Slide Counter Controller */}
-          <div className="flex items-center gap-4 text-xs text-[#888888]">
-            <button
-              onClick={() => setIsPaused(!isPaused)}
-              className="flex items-center gap-1.5 hover:text-[#e5c76b] transition-colors p-1"
-              aria-label={isPaused ? "Resume banner autoplay" : "Pause banner autoplay"}
-            >
-              {isPaused ? (
-                <>
-                  <Play className="w-3.5 h-3.5 text-[#c9a227]" />
-                  <span className="text-[11px] uppercase tracking-wider font-semibold">Autoplay Paused</span>
-                </>
-              ) : (
-                <>
-                  <Pause className="w-3.5 h-3.5 text-[#888888]" />
-                  <span className="text-[11px] uppercase tracking-wider font-semibold">Playing</span>
-                </>
-              )}
-            </button>
-
+          {/* Autoplay Status & Slide Counter */}
+          <div className="flex items-center gap-3 text-xs text-[#888888]">
+            <span className="inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-[#c9a227] font-semibold">
+              <span className="w-2 h-2 rounded-full bg-[#c9a227] animate-pulse" />
+              Continuous Auto-Play
+            </span>
             <span className="text-[#444444]">•</span>
             <span className="font-mono text-[11px] text-[#aaaaaa]">
               {currentSlide + 1} / {HERO_SLIDES.length}

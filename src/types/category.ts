@@ -6,4 +6,7 @@ export interface Category {
   image: string;
   itemCount: number;
   featured?: boolean;
+  tagline?: string;
+  badge?: string;
+  startingPrice?: number;
 }

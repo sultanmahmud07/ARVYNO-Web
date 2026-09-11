@@ -180,9 +180,8 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(12px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -190,23 +189,69 @@
 }
 
 @keyframes pulseGlow {
-
-  0%,
-  100% {
-    opacity: 0.4;
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
   }
-
   50% {
-    opacity: 0.8;
+    opacity: 0.85;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(12px, -12px) scale(1.05);
+  }
+}
+
+@keyframes goldShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes borderBreathing {
+  0%, 100% {
+    border-color: rgba(201, 162, 39, 0.25);
+    box-shadow: 0 0 15px rgba(201, 162, 39, 0.05);
+  }
+  50% {
+    border-color: rgba(201, 162, 39, 0.55);
+    box-shadow: 0 0 30px rgba(201, 162, 39, 0.18);
   }
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-pulse-glow {
-  animation: pulseGlow 3s ease-in-out infinite;
+  animation: pulseGlow 3.5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 8s ease-in-out infinite;
+}
+
+.animate-border-breathing {
+  animation: borderBreathing 4s ease-in-out infinite;
+}
+
+.gold-shimmer-btn {
+  background-size: 200% auto;
+  transition: all 0.4s ease;
+}
+
+.gold-shimmer-btn:hover {
+  background-position: right center;
+  box-shadow: 0 0 25px rgba(201, 162, 39, 0.4);
 }
 
 /* Reduced Motion Compliance */

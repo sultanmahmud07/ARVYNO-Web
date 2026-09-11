@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Product } from "@/types/product";
 import { ProductCard } from "@/components/product/product-card";
@@ -15,6 +15,7 @@ interface ProductSliderSectionProps {
   products: Product[];
   sectionBg?: string;
   hasBorder?: boolean;
+  autoPlayInterval?: number; // In milliseconds
 }
 
 export function ProductSliderSection({
@@ -26,15 +27,14 @@ export function ProductSliderSection({
   products,
   sectionBg = "bg-[#080808]",
   hasBorder = false,
+  autoPlayInterval = 4600,
 }: ProductSliderSectionProps) {
   // Slider index state for mid and large screens (0-indexed step)
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
-  const [isClient, setIsClient] = useState(false);
 
   // Measure visible items count on mid & large screens
   useEffect(() => {
-    setIsClient(true);
     const updateItemsPerView = () => {
       if (typeof window === "undefined") return;
       if (window.innerWidth >= 1024) {
@@ -55,20 +55,27 @@ export function ProductSliderSection({
   // Maximum starting index so the last window is filled
   const maxIndex = Math.max(0, totalProducts - itemsPerView);
 
-  const canGoPrev = currentIndex > 0;
-  const canGoNext = currentIndex < maxIndex;
+  // Continuous auto-play for product sliders on desktop/mid screens (does NOT pause on mouse hover)
+  useEffect(() => {
+    if (maxIndex <= 0) return;
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, autoPlayInterval);
+
+    return () => clearInterval(timer);
+  }, [maxIndex, autoPlayInterval]);
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
-  // Calculate slide translation percentage:
-  // Each card width percentage = 100 / itemsPerView
-  const translatePercent = (currentIndex * (100 / itemsPerView));
+  // Calculate slide translation percentage
+  const translatePercent = currentIndex * (100 / itemsPerView);
 
   return (
     <section
@@ -76,7 +83,10 @@ export function ProductSliderSection({
         hasBorder ? "border-y border-[#181818]" : ""
       } relative overflow-hidden`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Subtle ambient backglow */}
+      <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-[#c9a227]/4 rounded-full blur-[130px] pointer-events-none animate-pulse-glow" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header with Title & Desktop Slider Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-10">
@@ -108,30 +118,25 @@ export function ProductSliderSection({
               </Link>
             )}
 
-            {/* Slider Arrow Buttons — ONLY visible on Mid & Largest devices (hidden on mobile) */}
-            <div className="hidden md:flex items-center gap-2 pl-4 border-l border-[#222222]">
+            {/* Slider Controls with Continuous Auto-Play — ONLY visible on Mid & Largest devices (hidden on mobile) */}
+            <div className="hidden md:flex items-center gap-2.5 pl-4 border-l border-[#222222]">
+              <span className="inline-flex items-center gap-1 text-[10px] uppercase font-mono text-[#777777] pr-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#c9a227] animate-pulse" />
+                Live
+              </span>
+
               <button
                 onClick={handlePrev}
-                disabled={!canGoPrev}
                 aria-label={`Previous ${title} items`}
-                className={`p-2.5 rounded-full border transition-all duration-300 ${
-                  canGoPrev
-                    ? "bg-[#141414] hover:bg-[#c9a227] text-[#f8f8f6] hover:text-black border-[#2c2c2c] hover:border-[#c9a227] shadow-lg active:scale-95 cursor-pointer"
-                    : "bg-[#0f0f0f] text-[#444444] border-[#1a1a1a] cursor-not-allowed opacity-50"
-                }`}
+                className="p-2.5 rounded-full border bg-[#141414] hover:bg-[#c9a227] text-[#f8f8f6] hover:text-black border-[#2c2c2c] hover:border-[#c9a227] shadow-lg active:scale-95 cursor-pointer transition-all"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
 
               <button
                 onClick={handleNext}
-                disabled={!canGoNext}
                 aria-label={`Next ${title} items`}
-                className={`p-2.5 rounded-full border transition-all duration-300 ${
-                  canGoNext
-                    ? "bg-[#141414] hover:bg-[#c9a227] text-[#f8f8f6] hover:text-black border-[#2c2c2c] hover:border-[#c9a227] shadow-lg active:scale-95 cursor-pointer"
-                    : "bg-[#0f0f0f] text-[#444444] border-[#1a1a1a] cursor-not-allowed opacity-50"
-                }`}
+                className="p-2.5 rounded-full border bg-[#141414] hover:bg-[#c9a227] text-[#f8f8f6] hover:text-black border-[#2c2c2c] hover:border-[#c9a227] shadow-lg active:scale-95 cursor-pointer transition-all"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -139,10 +144,10 @@ export function ProductSliderSection({
           </div>
         </div>
 
-        {/* 1. MID & LARGE SCREENS: Modern Slider Track (hidden on mobile) */}
+        {/* 1. MID & LARGE SCREENS: Continuous Auto-Play Modern Slider Track */}
         <div className="hidden md:block relative overflow-hidden">
           <div
-            className="flex transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+            className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
             style={{
               transform: `translateX(-${translatePercent}%)`,
             }}
@@ -168,7 +173,7 @@ export function ProductSliderSection({
                   key={dotIdx}
                   onClick={() => setCurrentIndex(dotIdx)}
                   aria-label={`Go to slide ${dotIdx + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                     dotIdx === currentIndex
                       ? "w-8 bg-gradient-to-r from-[#c9a227] to-[#e5c76b]"
                       : "w-2 bg-[#2a2a2a] hover:bg-[#444444]"

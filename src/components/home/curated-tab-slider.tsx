@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { Product } from "@/types/product";
 import { ProductCard } from "@/components/product/product-card";
@@ -41,13 +41,7 @@ export function CuratedTabSlider({
     return () => window.removeEventListener("resize", updateItemsPerView);
   }, []);
 
-  // Reset index when switching tabs
-  const handleTabChange = (tab: TabKey) => {
-    setActiveTab(tab);
-    setCurrentIndex(0);
-  };
-
-  const getActiveProducts = (): Product[] => {
+  const getActiveProducts = useCallback((): Product[] => {
     switch (activeTab) {
       case "trending":
         return trendingProducts;
@@ -58,21 +52,38 @@ export function CuratedTabSlider({
       default:
         return trendingProducts;
     }
-  };
+  }, [activeTab, trendingProducts, newArrivals, bestSellers]);
 
   const products = getActiveProducts();
   const totalProducts = products.length;
   const maxIndex = Math.max(0, totalProducts - itemsPerView);
 
+  // Continuous auto-play for product slider on desktop/mid screens (does NOT pause on mouse hover)
+  useEffect(() => {
+    if (maxIndex <= 0) return;
+
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    }, 4200); // Auto-advance every 4.2 seconds
+
+    return () => clearInterval(timer);
+  }, [maxIndex, activeTab]);
+
+  // Reset index when switching tabs
+  const handleTabChange = (tab: TabKey) => {
+    setActiveTab(tab);
+    setCurrentIndex(0);
+  };
+
   const canGoPrev = currentIndex > 0;
   const canGoNext = currentIndex < maxIndex;
 
   const handlePrev = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 1));
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const translatePercent = currentIndex * (100 / itemsPerView);
@@ -110,7 +121,10 @@ export function CuratedTabSlider({
 
   return (
     <section className="py-20 bg-[#080808] border-b border-[#181818] relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background ambient light */}
+      <div className="absolute top-1/2 right-10 -translate-y-1/2 w-96 h-96 bg-[#c9a227]/5 rounded-full blur-[140px] pointer-events-none animate-float-slow" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Top Header & Tab Pills */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
@@ -132,9 +146,9 @@ export function CuratedTabSlider({
           <div className="inline-flex p-1 rounded-xl bg-[#121212] border border-[#242424] self-start md:self-auto shadow-inner">
             <button
               onClick={() => handleTabChange("trending")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "trending"
-                  ? "bg-[#c9a227] text-black shadow-md"
+                  ? "bg-[#c9a227] text-black shadow-lg shadow-[#c9a227]/20 scale-102"
                   : "text-[#888888] hover:text-[#f8f8f6]"
               }`}
             >
@@ -144,9 +158,9 @@ export function CuratedTabSlider({
 
             <button
               onClick={() => handleTabChange("new")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "new"
-                  ? "bg-[#c9a227] text-black shadow-md"
+                  ? "bg-[#c9a227] text-black shadow-lg shadow-[#c9a227]/20 scale-102"
                   : "text-[#888888] hover:text-[#f8f8f6]"
               }`}
             >
@@ -156,9 +170,9 @@ export function CuratedTabSlider({
 
             <button
               onClick={() => handleTabChange("bestsellers")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeTab === "bestsellers"
-                  ? "bg-[#c9a227] text-black shadow-md"
+                  ? "bg-[#c9a227] text-black shadow-lg shadow-[#c9a227]/20 scale-102"
                   : "text-[#888888] hover:text-[#f8f8f6]"
               }`}
             >
@@ -178,53 +192,46 @@ export function CuratedTabSlider({
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
           </Link>
 
-          {/* Slider Controls — HIDDEN ON MOBILE (< md), ACTIVE ON MID & LARGEST DEVICES */}
-          <div className="hidden md:flex items-center gap-2">
-            <span className="text-xs font-mono text-[#777777] pr-2">
-              Slide {currentIndex + 1} / {maxIndex + 1}
+          {/* Slider Controls with Auto-Play Indicator — HIDDEN ON MOBILE (< md), ACTIVE ON MID & LARGEST DEVICES */}
+          <div className="hidden md:flex items-center gap-3">
+            <span className="inline-flex items-center gap-1 text-[11px] font-mono text-[#777777] pr-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c9a227] animate-pulse" />
+              Auto-Sliding
             </span>
+
             <button
               onClick={handlePrev}
-              disabled={!canGoPrev}
               aria-label="Previous products"
-              className={`p-2.5 rounded-full border transition-all ${
-                canGoPrev
-                  ? "bg-[#141414] hover:bg-[#c9a227] text-[#f8f8f6] hover:text-black border-[#2c2c2c] hover:border-[#c9a227] shadow-lg cursor-pointer active:scale-95"
-                  : "bg-[#0f0f0f] text-[#444444] border-[#1a1a1a] cursor-not-allowed opacity-50"
-              }`}
+              className="p-2.5 rounded-full border bg-[#141414] hover:bg-[#c9a227] text-[#f8f8f6] hover:text-black border-[#2c2c2c] hover:border-[#c9a227] shadow-lg cursor-pointer active:scale-95 transition-all"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
 
             <button
               onClick={handleNext}
-              disabled={!canGoNext}
               aria-label="Next products"
-              className={`p-2.5 rounded-full border transition-all ${
-                canGoNext
-                  ? "bg-[#141414] hover:bg-[#c9a227] text-[#f8f8f6] hover:text-black border-[#2c2c2c] hover:border-[#c9a227] shadow-lg cursor-pointer active:scale-95"
-                  : "bg-[#0f0f0f] text-[#444444] border-[#1a1a1a] cursor-not-allowed opacity-50"
-              }`}
+              className="p-2.5 rounded-full border bg-[#141414] hover:bg-[#c9a227] text-[#f8f8f6] hover:text-black border-[#2c2c2c] hover:border-[#c9a227] shadow-lg cursor-pointer active:scale-95 transition-all"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        {/* 1. MID & LARGE DEVICES: Slider Track */}
+        {/* 1. MID & LARGE DEVICES: Continuous Auto-Play Slider Track */}
         <div className="hidden md:block relative overflow-hidden">
           <div
-            className="flex transition-transform duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+            className="flex transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
             style={{
               transform: `translateX(-${translatePercent}%)`,
             }}
           >
             {products.map((product, idx) => (
               <div
-                key={product.id}
-                className="flex-shrink-0 px-2.5 lg:px-3"
+                key={product.id + "-" + activeTab}
+                className="flex-shrink-0 px-2.5 lg:px-3 animate-fade-in"
                 style={{
                   width: itemsPerView === 3 ? "33.3333%" : "25%",
+                  animationDelay: `${idx * 60}ms`,
                 }}
               >
                 <ProductCard product={product} priorityImage={idx < 4} />
@@ -240,7 +247,7 @@ export function CuratedTabSlider({
                   key={dotIdx}
                   onClick={() => setCurrentIndex(dotIdx)}
                   aria-label={`Go to slide ${dotIdx + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
                     dotIdx === currentIndex
                       ? "w-8 bg-gradient-to-r from-[#c9a227] to-[#e5c76b]"
                       : "w-2 bg-[#2a2a2a] hover:bg-[#444444]"
