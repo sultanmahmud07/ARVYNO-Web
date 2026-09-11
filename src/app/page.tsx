@@ -5,15 +5,15 @@ import { BrandStatement } from "@/components/home/brand-statement";
 import { PromoBanner } from "@/components/home/promo-banner";
 import { SocialGallery } from "@/components/home/social-gallery";
 import { NewsletterSection } from "@/components/home/newsletter-section";
-import { ProductGrid } from "@/components/product/product-grid";
-import { SectionHeading } from "@/components/common/section-heading";
+import { ProductSliderSection } from "@/components/home/product-slider-section";
+import { CuratedTabSlider } from "@/components/home/curated-tab-slider";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/common/json-ld";
 
 export default async function HomePage() {
   const [trendingProducts, newArrivals, bestSellers] = await Promise.all([
-    getTrendingProducts(4),
-    getNewArrivals(4),
-    getBestSellers(4),
+    getTrendingProducts(8),
+    getNewArrivals(8),
+    getBestSellers(8),
   ]);
 
   return (
@@ -21,64 +21,63 @@ export default async function HomePage() {
       <OrganizationJsonLd />
       <WebSiteJsonLd />
 
-      {/* Hero Section */}
+      {/* 1. Dynamic Sliding Luxury Banner */}
       <HeroSection />
 
-      {/* Featured Category Glass Cards */}
+      {/* 2. Interactive Curated Tabbed Slider (Trending | New Arrivals | Best Sellers) */}
+      <CuratedTabSlider
+        trendingProducts={trendingProducts}
+        newArrivals={newArrivals}
+        bestSellers={bestSellers}
+      />
+
+      {/* 3. Featured Category Glass Cards */}
       <FeaturedCategories />
 
-      {/* Trending Now Section */}
-      <section className="py-20 bg-[#080808]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            subtitle="Curated Essentials"
-            title="Trending Now"
-            description="The most in-demand pieces defining contemporary luxury menswear this season."
-            viewAllHref="/products?sort=trending"
-            viewAllLabel="Explore All Trending"
-          />
-          <ProductGrid products={trendingProducts} />
-        </div>
-      </section>
+      {/* 4. Dedicated Trending Now Product Slider (Slider for md+, 2-col grid on mobile) */}
+      <ProductSliderSection
+        subtitle="Curated Essentials"
+        title="Trending Now"
+        description="The most in-demand pieces defining contemporary luxury menswear this season."
+        viewAllHref="/products?sort=trending"
+        viewAllLabel="Explore All Trending"
+        products={trendingProducts}
+        sectionBg="bg-[#080808]"
+      />
 
-      {/* Brand Statement / Manifesto */}
+      {/* 5. Brand Statement / Manifesto */}
       <BrandStatement />
 
-      {/* New Arrivals Section */}
-      <section className="py-20 bg-[#0a0a0a] border-y border-[#181818]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            subtitle="Latest Drop"
-            title="New Arrivals"
-            description="Fresh silhouettes, seasonal striped palettes, and heavyweight organic cotton releases."
-            viewAllHref="/categories/new-arrivals"
-            viewAllLabel="View All New Drops"
-          />
-          <ProductGrid products={newArrivals} />
-        </div>
-      </section>
+      {/* 6. Dedicated New Arrivals Product Slider (Slider for md+, 2-col grid on mobile) */}
+      <ProductSliderSection
+        subtitle="Latest Drop"
+        title="New Arrivals"
+        description="Fresh silhouettes, seasonal striped palettes, and heavyweight organic cotton releases."
+        viewAllHref="/categories/new-arrivals"
+        viewAllLabel="View All New Drops"
+        products={newArrivals}
+        sectionBg="bg-[#0a0a0a]"
+        hasBorder={true}
+      />
 
-      {/* Promotional Striped Shirt Banner */}
+      {/* 7. Promotional Striped Shirt Banner */}
       <PromoBanner />
 
-      {/* Best Sellers Section */}
-      <section className="py-20 bg-[#080808]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            subtitle="Customer Favorites"
-            title="Signature Best Sellers"
-            description="Time-tested garments celebrated for unrivaled structural drape and long-lasting quality."
-            viewAllHref="/categories/best-sellers"
-            viewAllLabel="View All Best Sellers"
-          />
-          <ProductGrid products={bestSellers} />
-        </div>
-      </section>
+      {/* 8. Dedicated Signature Best Sellers Product Slider (Slider for md+, 2-col grid on mobile) */}
+      <ProductSliderSection
+        subtitle="Customer Favorites"
+        title="Signature Best Sellers"
+        description="Time-tested garments celebrated for unrivaled structural drape and long-lasting quality."
+        viewAllHref="/categories/best-sellers"
+        viewAllLabel="View All Best Sellers"
+        products={bestSellers}
+        sectionBg="bg-[#080808]"
+      />
 
-      {/* Instagram / Lookbook Social Grid */}
+      {/* 9. Instagram / Lookbook Social Grid */}
       <SocialGallery />
 
-      {/* Private Members Newsletter */}
+      {/* 10. Private Members Newsletter */}
       <NewsletterSection />
     </>
   );

@@ -110,11 +110,10 @@ export function ProductFilters({
         <div className="space-y-1">
           <button
             onClick={() => handleCategorySelect(null)}
-            className={`w-full text-left text-xs py-2 px-3 rounded-lg transition-all flex items-center justify-between ${
-              pathname === "/products" && !queryCategory
+            className={`w-full text-left text-xs py-2 px-3 rounded-lg transition-all flex items-center justify-between ${pathname === "/products" && !queryCategory
                 ? "bg-[#c9a227]/15 text-[#e5c76b] font-medium border-l-2 border-[#c9a227]"
                 : "text-[#888888] hover:text-[#f8f8f6] hover:bg-[#161616]"
-            }`}
+              }`}
           >
             <span>All Products</span>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#181818] text-[#666666]">
@@ -127,19 +126,17 @@ export function ProductFilters({
               <button
                 key={cat.slug}
                 onClick={() => handleCategorySelect(cat.slug)}
-                className={`w-full text-left text-xs py-2 px-3 rounded-lg transition-all flex items-center justify-between ${
-                  isCatActive
+                className={`w-full text-left text-xs py-2 px-3 rounded-lg transition-all flex items-center justify-between ${isCatActive
                     ? "bg-[#c9a227]/15 text-[#e5c76b] font-medium border-l-2 border-[#c9a227]"
                     : "text-[#888888] hover:text-[#f8f8f6] hover:bg-[#161616]"
-                }`}
+                  }`}
               >
                 <span className="truncate pr-2">{cat.name}</span>
                 <span
-                  className={`text-[10px] px-2 py-0.5 rounded-full ${
-                    isCatActive
+                  className={`text-[10px] px-2 py-0.5 rounded-full ${isCatActive
                       ? "bg-[#c9a227]/20 text-[#e5c76b]"
                       : "bg-[#181818] text-[#666666]"
-                  }`}
+                    }`}
                 >
                   {cat.itemCount}
                 </span>
@@ -173,11 +170,10 @@ export function ProductFilters({
               <button
                 key={size}
                 onClick={() => updateParam("size", isSelected ? null : size)}
-                className={`h-9 text-xs font-semibold rounded-lg border transition-all flex items-center justify-center ${
-                  isSelected
+                className={`h-9 text-xs font-semibold rounded-lg border transition-all flex items-center justify-center ${isSelected
                     ? "bg-[#c9a227] text-black border-[#c9a227] shadow-[0_0_12px_rgba(201,162,39,0.35)] scale-[1.02]"
                     : "bg-[#141414] text-[#a0a0a0] border-[#242424] hover:border-[#444444] hover:text-white"
-                }`}
+                  }`}
               >
                 {size}
               </button>
@@ -216,18 +212,16 @@ export function ProductFilters({
                     isSelected ? null : color.name.toLowerCase()
                   )
                 }
-                className={`flex items-center gap-2.5 px-3 py-2 rounded-lg border text-xs transition-all ${
-                  isSelected
+                className={`flex items-center gap-2.5 px-3 py-2 rounded-lg border text-xs transition-all ${isSelected
                     ? "bg-[#1c1c1c] text-[#e5c76b] border-[#c9a227] shadow-sm font-medium"
                     : "bg-[#131313] text-[#888888] border-[#222222] hover:border-[#383838] hover:text-[#f8f8f6]"
-                }`}
+                  }`}
               >
                 <span
-                  className={`w-3.5 h-3.5 rounded-full border flex-shrink-0 relative ${
-                    isSelected
+                  className={`w-3.5 h-3.5 rounded-full border flex-shrink-0 relative ${isSelected
                       ? "border-[#e5c76b] ring-2 ring-[#c9a227]/40"
                       : "border-[#444444]"
-                  }`}
+                    }`}
                   style={{ backgroundColor: color.hex }}
                 />
                 <span className="truncate">{color.name}</span>
@@ -270,11 +264,10 @@ export function ProductFilters({
                 updateParam("maxPrice", "2000");
               }
             }}
-            className={`py-2 px-3 text-xs rounded-lg border text-left transition-all ${
-              currentMaxPrice === "2000" && !currentMinPrice
+            className={`py-2 px-3 text-xs rounded-lg border text-left transition-all ${currentMaxPrice === "2000" && !currentMinPrice
                 ? "bg-[#c9a227]/15 text-[#e5c76b] border-[#c9a227]/50 font-medium"
                 : "bg-[#131313] text-[#888888] border-[#222222] hover:text-white hover:border-[#383838]"
-            }`}
+              }`}
           >
             Under ৳2,000
           </button>
@@ -288,11 +281,10 @@ export function ProductFilters({
                 updateParam("maxPrice", "3000");
               }
             }}
-            className={`py-2 px-3 text-xs rounded-lg border text-left transition-all ${
-              currentMinPrice === "2000" && currentMaxPrice === "3000"
+            className={`py-2 px-3 text-xs rounded-lg border text-left transition-all ${currentMinPrice === "2000" && currentMaxPrice === "3000"
                 ? "bg-[#c9a227]/15 text-[#e5c76b] border-[#c9a227]/50 font-medium"
                 : "bg-[#131313] text-[#888888] border-[#222222] hover:text-white hover:border-[#383838]"
-            }`}
+              }`}
           >
             ৳2,000 – ৳3,000
           </button>
@@ -374,8 +366,8 @@ export function ProductFilters({
                 {currentMinPrice && currentMaxPrice
                   ? `৳${currentMinPrice} – ৳${currentMaxPrice}`
                   : currentMaxPrice
-                  ? `< ৳${currentMaxPrice}`
-                  : `> ৳${currentMinPrice}`}
+                    ? `< ৳${currentMaxPrice}`
+                    : `> ৳${currentMinPrice}`}
               </span>
               <button
                 onClick={() => {

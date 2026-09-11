@@ -119,11 +119,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             aria-label={
               inWishlist ? "Remove from wishlist" : "Add to wishlist"
             }
-            className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md transition-all z-10 ${
-              inWishlist
+            className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md transition-all z-10 ${inWishlist
                 ? "bg-[#c9a227] text-black scale-110 shadow-lg"
                 : "bg-black/60 text-[#f8f8f6] hover:bg-black/90"
-            }`}
+              }`}
           >
             <Heart className={`w-5 h-5 ${inWishlist ? "fill-black" : ""}`} />
           </button>
@@ -136,11 +135,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               <button
                 key={idx}
                 onClick={() => setActiveImageIndex(idx)}
-                className={`relative w-20 h-24 rounded-xl overflow-hidden bg-[#141414] border flex-shrink-0 transition-all ${
-                  activeImageIndex === idx
+                className={`relative w-20 h-24 rounded-xl overflow-hidden bg-[#141414] border flex-shrink-0 transition-all ${activeImageIndex === idx
                     ? "border-[#c9a227] ring-2 ring-[#c9a227]/40 scale-105"
                     : "border-[#282828] opacity-60 hover:opacity-100"
-                }`}
+                  }`}
               >
                 <Image
                   src={img}
@@ -162,14 +160,12 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
           <div className="flex items-center justify-between text-xs text-[#888888] uppercase tracking-widest pb-1">
             <span className="text-[#c9a227] font-semibold">{product.category}</span>
             <span
-              className={`flex items-center gap-1.5 font-medium ${
-                product.stock > 0 ? "text-[#4ade80]" : "text-[#f87171]"
-              }`}
+              className={`flex items-center gap-1.5 font-medium ${product.stock > 0 ? "text-[#4ade80]" : "text-[#f87171]"
+                }`}
             >
               <span
-                className={`w-2 h-2 rounded-full ${
-                  product.stock > 0 ? "bg-[#4ade80]" : "bg-[#f87171]"
-                }`}
+                className={`w-2 h-2 rounded-full ${product.stock > 0 ? "bg-[#4ade80]" : "bg-[#f87171]"
+                  }`}
               />
               {product.stock > 0 ? "In Stock (Ready to Ship)" : "Sold Out"}
             </span>
@@ -240,11 +236,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               <button
                 key={c.name}
                 onClick={() => setSelectedColor(c.name)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium transition-all ${
-                  selectedColor === c.name
+                className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium transition-all ${selectedColor === c.name
                     ? "bg-[#1f1f1f] text-[#f8f8f6] border-[#c9a227] ring-1 ring-[#c9a227]"
                     : "bg-[#121212] text-[#888888] border-[#292929] hover:border-[#444444]"
-                }`}
+                  }`}
               >
                 <span
                   className="w-3.5 h-3.5 rounded-full border border-black/40"
@@ -276,11 +271,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               <button
                 key={size}
                 onClick={() => setSelectedSize(size)}
-                className={`py-3 rounded-xl border text-xs font-bold transition-all ${
-                  selectedSize === size
+                className={`py-3 rounded-xl border text-xs font-bold transition-all ${selectedSize === size
                     ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black border-[#c9a227] shadow-lg shadow-[#c9a227]/15"
                     : "bg-[#141414] text-[#cccccc] border-[#282828] hover:border-[#444444]"
-                }`}
+                  }`}
               >
                 {size}
               </button>
@@ -367,9 +361,8 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             >
               <span>Product Specifications & Details</span>
               <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  openAccordions.details ? "rotate-180 text-[#c9a227]" : ""
-                }`}
+                className={`w-4 h-4 transition-transform duration-200 ${openAccordions.details ? "rotate-180 text-[#c9a227]" : ""
+                  }`}
               />
             </button>
             {openAccordions.details && (
@@ -391,9 +384,8 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             >
               <span>Fabric & Garment Care</span>
               <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  openAccordions.fabric ? "rotate-180 text-[#c9a227]" : ""
-                }`}
+                className={`w-4 h-4 transition-transform duration-200 ${openAccordions.fabric ? "rotate-180 text-[#c9a227]" : ""
+                  }`}
               />
             </button>
             {openAccordions.fabric && (
@@ -415,9 +407,8 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             >
               <span>Shipping, Delivery & Returns</span>
               <ChevronDown
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  openAccordions.shipping ? "rotate-180 text-[#c9a227]" : ""
-                }`}
+                className={`w-4 h-4 transition-transform duration-200 ${openAccordions.shipping ? "rotate-180 text-[#c9a227]" : ""
+                  }`}
               />
             </button>
             {openAccordions.shipping && (

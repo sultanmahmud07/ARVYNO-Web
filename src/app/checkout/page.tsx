@@ -71,10 +71,10 @@ export default function CheckoutPage() {
     summary.subtotal === 0
       ? 0
       : isFreeDelivery
-      ? 0
-      : zone === "inside_dhaka"
-      ? DELIVERY_CONFIG.insideDhaka
-      : DELIVERY_CONFIG.outsideDhaka;
+        ? 0
+        : zone === "inside_dhaka"
+          ? DELIVERY_CONFIG.insideDhaka
+          : DELIVERY_CONFIG.outsideDhaka;
 
   const currentTotal = summary.subtotal + currentDeliveryFee;
 
@@ -221,11 +221,10 @@ export default function CheckoutPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <label
                     onClick={() => handleZoneChange("inside_dhaka")}
-                    className={`cursor-pointer p-4 rounded-xl border flex flex-col justify-between transition-all ${
-                      zone === "inside_dhaka"
+                    className={`cursor-pointer p-4 rounded-xl border flex flex-col justify-between transition-all ${zone === "inside_dhaka"
                         ? "bg-[#1f1f1f] border-[#c9a227] ring-1 ring-[#c9a227]"
                         : "bg-[#141414] border-[#292929] hover:border-[#444444]"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-[#f8f8f6]">
@@ -242,11 +241,10 @@ export default function CheckoutPage() {
 
                   <label
                     onClick={() => handleZoneChange("outside_dhaka")}
-                    className={`cursor-pointer p-4 rounded-xl border flex flex-col justify-between transition-all ${
-                      zone === "outside_dhaka"
+                    className={`cursor-pointer p-4 rounded-xl border flex flex-col justify-between transition-all ${zone === "outside_dhaka"
                         ? "bg-[#1f1f1f] border-[#c9a227] ring-1 ring-[#c9a227]"
                         : "bg-[#141414] border-[#292929] hover:border-[#444444]"
-                    }`}
+                      }`}
                   >
                     <div className="flex items-center justify-between">
                       <span className="text-xs font-bold text-[#f8f8f6]">
@@ -282,9 +280,8 @@ export default function CheckoutPage() {
                       value={formData.fullName}
                       onChange={handleInputChange}
                       placeholder="e.g. Sultan Mahmud"
-                      className={`w-full bg-[#141414] border rounded-lg px-3.5 py-3 text-xs text-[#f8f8f6] placeholder-[#666666] focus:outline-none focus:border-[#c9a227] ${
-                        errors.fullName ? "border-[#ef4444]" : "border-[#2b2b2b]"
-                      }`}
+                      className={`w-full bg-[#141414] border rounded-lg px-3.5 py-3 text-xs text-[#f8f8f6] placeholder-[#666666] focus:outline-none focus:border-[#c9a227] ${errors.fullName ? "border-[#ef4444]" : "border-[#2b2b2b]"
+                        }`}
                     />
                     {errors.fullName && (
                       <p className="text-[11px] text-[#ef4444] mt-1">
@@ -305,9 +302,8 @@ export default function CheckoutPage() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         placeholder="01700-000000"
-                        className={`w-full bg-[#141414] border rounded-lg px-3.5 py-3 text-xs text-[#f8f8f6] placeholder-[#666666] focus:outline-none focus:border-[#c9a227] ${
-                          errors.phone ? "border-[#ef4444]" : "border-[#2b2b2b]"
-                        }`}
+                        className={`w-full bg-[#141414] border rounded-lg px-3.5 py-3 text-xs text-[#f8f8f6] placeholder-[#666666] focus:outline-none focus:border-[#c9a227] ${errors.phone ? "border-[#ef4444]" : "border-[#2b2b2b]"
+                          }`}
                       />
                       {errors.phone && (
                         <p className="text-[11px] text-[#ef4444] mt-1">
@@ -342,9 +338,8 @@ export default function CheckoutPage() {
                       value={formData.address}
                       onChange={handleInputChange}
                       placeholder="House number, Road name/number, Area / Sector"
-                      className={`w-full bg-[#141414] border rounded-lg px-3.5 py-2.5 text-xs text-[#f8f8f6] placeholder-[#666666] focus:outline-none focus:border-[#c9a227] ${
-                        errors.address ? "border-[#ef4444]" : "border-[#2b2b2b]"
-                      }`}
+                      className={`w-full bg-[#141414] border rounded-lg px-3.5 py-2.5 text-xs text-[#f8f8f6] placeholder-[#666666] focus:outline-none focus:border-[#c9a227] ${errors.address ? "border-[#ef4444]" : "border-[#2b2b2b]"
+                        }`}
                     />
                     {errors.address && (
                       <p className="text-[11px] text-[#ef4444] mt-1">

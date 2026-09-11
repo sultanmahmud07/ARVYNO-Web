@@ -112,7 +112,7 @@ export default function CartPage() {
                             ((summary.freeDeliveryThreshold -
                               summary.amountNeededForFreeDelivery) /
                               summary.freeDeliveryThreshold) *
-                              100
+                            100
                           )}%`,
                         }}
                       />

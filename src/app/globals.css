@@ -8,38 +8,38 @@
     --surface: #101010;
     --surface-elevated: #161616;
     --surface-card: #141414;
-    
+
     --card: #121212;
     --card-foreground: #f8f8f6;
-    
+
     --popover: #121212;
     --popover-foreground: #f8f8f6;
-    
+
     --primary: #c9a227;
     --primary-foreground: #000000;
     --primary-light: #e5c76b;
     --primary-dark: #96781b;
-    
+
     --secondary: #1a1a1a;
     --secondary-foreground: #f8f8f6;
-    
+
     --muted: #1e1e1e;
     --muted-foreground: #9ca3af;
-    
+
     --accent: #222222;
     --accent-foreground: #e5c76b;
-    
+
     --destructive: #991b1b;
     --destructive-foreground: #ffffff;
-    
+
     --border: #242424;
     --border-gold: rgba(201, 162, 39, 0.25);
     --border-gold-glow: rgba(201, 162, 39, 0.5);
     --input: #202020;
     --ring: #c9a227;
-    
+
     --radius: 0.5rem;
-    
+
     --gold-gradient: linear-gradient(135deg, #e5c76b 0%, #c9a227 50%, #96781b 100%);
     --gold-text-gradient: linear-gradient(135deg, #fff2be 0%, #e5c76b 40%, #c9a227 100%);
     --dark-gradient: linear-gradient(180deg, rgba(16, 16, 16, 0.9) 0%, rgba(8, 8, 8, 0.98) 100%);
@@ -53,6 +53,24 @@
   html {
     scroll-behavior: smooth;
     color-scheme: dark;
+  }
+
+  /* Lenis Smooth Scroll Optimization */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 
   body {
@@ -160,13 +178,27 @@
 
 /* Animation Utilities */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.8; }
+
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
 .animate-fade-in {

@@ -81,11 +81,10 @@ export function ProductCard({ product, priorityImage = false }: ProductCardProps
             alt={product.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className={`object-cover object-center transition-all duration-700 ease-out ${
-              isHovered && secondaryImage !== primaryImage
+            className={`object-cover object-center transition-all duration-700 ease-out ${isHovered && secondaryImage !== primaryImage
                 ? "opacity-0 scale-105"
                 : "opacity-100 scale-100"
-            }`}
+              }`}
             priority={priorityImage}
           />
 
@@ -96,9 +95,8 @@ export function ProductCard({ product, priorityImage = false }: ProductCardProps
               alt={`${product.name} alternate view`}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              className={`object-cover object-center transition-all duration-700 ease-out absolute inset-0 ${
-                isHovered ? "opacity-100 scale-105" : "opacity-0 scale-100"
-              }`}
+              className={`object-cover object-center transition-all duration-700 ease-out absolute inset-0 ${isHovered ? "opacity-100 scale-105" : "opacity-0 scale-100"
+                }`}
             />
           )}
         </Link>
@@ -130,11 +128,10 @@ export function ProductCard({ product, priorityImage = false }: ProductCardProps
               ? `Remove ${product.name} from wishlist`
               : `Add ${product.name} to wishlist`
           }
-          className={`absolute top-3 right-3 p-2.5 rounded-full backdrop-blur-md transition-all duration-200 z-10 ${
-            inWishlist
+          className={`absolute top-3 right-3 p-2.5 rounded-full backdrop-blur-md transition-all duration-200 z-10 ${inWishlist
               ? "bg-[#c9a227] text-black shadow-lg scale-105"
               : "bg-black/50 text-[#cccccc] hover:text-[#f8f8f6] hover:bg-black/80 hover:scale-105"
-          }`}
+            }`}
         >
           <Heart
             className={`w-4 h-4 transition-transform ${inWishlist ? "fill-black text-black" : ""}`}
@@ -212,11 +209,10 @@ export function ProductCard({ product, priorityImage = false }: ProductCardProps
                   setSelectedColor(c.name);
                 }}
                 title={c.name}
-                className={`w-3.5 h-3.5 rounded-full border transition-all ${
-                  selectedColor === c.name
+                className={`w-3.5 h-3.5 rounded-full border transition-all ${selectedColor === c.name
                     ? "border-[#e5c76b] ring-2 ring-[#c9a227]/40 scale-110"
                     : "border-[#444444] opacity-80 hover:opacity-100"
-                }`}
+                  }`}
                 style={{ backgroundColor: c.hex }}
               />
             ))}

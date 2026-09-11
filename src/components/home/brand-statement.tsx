@@ -15,7 +15,7 @@ export function BrandStatement() {
           <div className="lg:col-span-6">
             <div className="relative aspect-[4/5] sm:aspect-square lg:aspect-[4/5] rounded-2xl overflow-hidden border border-[#c9a227]/30 shadow-2xl bg-[#141414] group">
               <Image
-                src="/images/banners/welcome-tee-banner.png"
+                src="/images/banners/welcome-tee-banner.jpg"
                 alt="ARVYNO Philosophy — A New Identity in Fashion"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
