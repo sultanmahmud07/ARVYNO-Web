@@ -1,0 +1,129 @@
+import React from "react";
+import { Product } from "@/types/product";
+import { BRAND } from "@/lib/constants";
+
+export function OrganizationJsonLd() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ClothingStore",
+    name: BRAND.name,
+    description: BRAND.description,
+    url: "https://www.arvyno.com",
+    logo: `https://www.arvyno.com${BRAND.logo}`,
+    image: `https://www.arvyno.com/images/banners/hero-banner.png`,
+    telephone: BRAND.contact.phone,
+    email: BRAND.contact.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: BRAND.contact.address,
+      addressLocality: "Dhaka",
+      addressCountry: "BD",
+    },
+    sameAs: [
+      BRAND.social.facebook,
+      BRAND.social.instagram,
+      BRAND.social.tiktok,
+    ],
+    priceRange: "৳৳",
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function WebSiteJsonLd() {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: BRAND.name,
+    url: "https://www.arvyno.com",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://www.arvyno.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function ProductJsonLd({ product }: { product: Product }) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    image: product.images.map((img) =>
+      img.startsWith("http") ? img : `https://www.arvyno.com${img}`
+    ),
+    description: product.description,
+    sku: product.id,
+    mpn: product.id,
+    brand: {
+      "@type": "Brand",
+      name: BRAND.name,
+    },
+    offers: {
+      "@type": "Offer",
+      url: `https://www.arvyno.com/products/${product.slug}`,
+      priceCurrency: "BDT",
+      price: product.price,
+      priceValidUntil: "2027-12-31",
+      itemCondition: "https://schema.org/NewCondition",
+      availability:
+        product.stock > 0
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      seller: {
+        "@type": "Organization",
+        name: BRAND.name,
+      },
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating || 4.9,
+      reviewCount: product.reviewCount || 10,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function BreadcrumbJsonLd({
+  items,
+}: {
+  items: { name: string; url: string }[];
+}) {
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, idx) => ({
+      "@type": "ListItem",
+      position: idx + 1,
+      name: item.name,
+      item: item.url.startsWith("http")
+        ? item.url
+        : `https://www.arvyno.com${item.url}`,
+    })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
