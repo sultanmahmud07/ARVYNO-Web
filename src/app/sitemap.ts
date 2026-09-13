@@ -3,81 +3,83 @@ import { PRODUCTS } from "@/data/products";
 import { CATEGORIES } from "@/data/categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.arvyno.com";
+  const baseUrl = "https://www.arvynobd.com";
+  const now = new Date();
 
   // Static routes
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "daily",
       priority: 1.0,
     },
     {
       url: `${baseUrl}/products`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "daily",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/categories`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "weekly",
-      priority: 0.8,
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: `${baseUrl}/shipping`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/returns`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/privacy`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "yearly",
-      priority: 0.3,
+      priority: 0.4,
     },
     {
       url: `${baseUrl}/terms`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: "yearly",
-      priority: 0.3,
+      priority: 0.4,
     },
   ];
-
-  // Dynamic Product routes
-  const productRoutes: MetadataRoute.Sitemap = PRODUCTS.map((product) => ({
-    url: `${baseUrl}/products/${product.slug}`,
-    lastModified: new Date(product.createdAt),
-    changeFrequency: "weekly",
-    priority: 0.85,
-  }));
 
   // Dynamic Category routes
   const categoryRoutes: MetadataRoute.Sitemap = CATEGORIES.map((category) => ({
     url: `${baseUrl}/categories/${category.slug}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: "weekly",
     priority: 0.8,
   }));
 
+  // Dynamic Product routes
+  const productRoutes: MetadataRoute.Sitemap = PRODUCTS.map((product) => ({
+    url: `${baseUrl}/products/${product.slug}`,
+    lastModified: product.createdAt ? new Date(product.createdAt) : now,
+    changeFrequency: "weekly",
+    priority: 0.85,
+  }));
+
   return [...staticRoutes, ...categoryRoutes, ...productRoutes];
 }
+

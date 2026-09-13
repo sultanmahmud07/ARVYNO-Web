@@ -28,7 +28,7 @@ export default function TermsPage() {
               1. Acceptance of Terms
             </h2>
             <p>
-              By accessing and placing an order on www.arvyno.com, you agree to be
+              By accessing and placing an order on www.arvynobd.com, you agree to be
               bound by these terms of service, our shipping policies, and our
               return guidelines.
             </p>

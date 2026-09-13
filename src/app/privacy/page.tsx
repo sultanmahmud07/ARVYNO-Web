@@ -66,7 +66,7 @@ export default function PrivacyPage() {
             <p>
               If you have any questions regarding your data or would like your
               order history purged, please email us at{" "}
-              <span className="text-[#e5c76b]">concierge@arvyno.com</span>.
+              <span className="text-[#e5c76b]">concierge@arvynobd.com</span>.
             </p>
           </section>
         </div>

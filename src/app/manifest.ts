@@ -2,8 +2,8 @@ import { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "ARVYNO — Wear Your Identity",
-    short_name: "ARVYNO",
+    name: "ARVYNO Fashion — Wear Your Identity",
+    short_name: "ARVYNO Fashion",
     description: "Luxury fashion and premium menswear atelier.",
     start_url: "/",
     display: "standalone",

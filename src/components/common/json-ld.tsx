@@ -7,10 +7,11 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "ClothingStore",
     name: BRAND.name,
+    alternateName: ["ARVYNO", "ARVYNO BD", "ARVYNO Fashion"],
     description: BRAND.description,
-    url: "https://www.arvyno.com",
-    logo: `https://www.arvyno.com${BRAND.logo}`,
-    image: `https://www.arvyno.com/images/banners/hero-banner.png`,
+    url: BRAND.siteUrl,
+    logo: `${BRAND.siteUrl}${BRAND.logo}`,
+    image: `${BRAND.siteUrl}/images/banners/hero-banner.png`,
     telephone: BRAND.contact.phone,
     email: BRAND.contact.email,
     address: {
@@ -40,10 +41,11 @@ export function WebSiteJsonLd() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: BRAND.name,
-    url: "https://www.arvyno.com",
+    alternateName: ["ARVYNO", "ARVYNO BD", "ARVYNO Fashion"],
+    url: BRAND.siteUrl,
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://www.arvyno.com/search?q={search_term_string}",
+      target: `${BRAND.siteUrl}/search?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
   };
@@ -62,7 +64,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
     "@type": "Product",
     name: product.name,
     image: product.images.map((img) =>
-      img.startsWith("http") ? img : `https://www.arvyno.com${img}`
+      img.startsWith("http") ? img : `${BRAND.siteUrl}${img}`
     ),
     description: product.description,
     sku: product.id,
@@ -73,7 +75,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
     },
     offers: {
       "@type": "Offer",
-      url: `https://www.arvyno.com/products/${product.slug}`,
+      url: `${BRAND.siteUrl}/products/${product.slug}`,
       priceCurrency: "BDT",
       price: product.price,
       priceValidUntil: "2027-12-31",
@@ -116,7 +118,7 @@ export function BreadcrumbJsonLd({
       name: item.name,
       item: item.url.startsWith("http")
         ? item.url
-        : `https://www.arvyno.com${item.url}`,
+        : `${BRAND.siteUrl}${item.url}`,
     })),
   };
 
@@ -127,3 +129,4 @@ export function BreadcrumbJsonLd({
     />
   );
 }
+
