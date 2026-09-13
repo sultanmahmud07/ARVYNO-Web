@@ -83,6 +83,9 @@ export const metadata: Metadata = {
     apple: "/images/logo/arvyno-logo.png",
   },
   manifest: "/manifest.json",
+  verification: {
+    google: "8mBV51rwtbjn2mY-bb0LcUoIWvIGtCL-JdDXGXbb09Y",
+  },
 };
 
 export default function RootLayout({
