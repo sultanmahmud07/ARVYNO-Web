@@ -307,7 +307,7 @@ export const PRODUCTS: Product[] = [
       "/images/products/blue-striped-shirt.jpg",
     ],
     colors: [{ name: "Crimson Stripe", hex: "#a83232" }],
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "XXL"],  
     stock: 18,
     rating: 4.7,
     reviewCount: 15,

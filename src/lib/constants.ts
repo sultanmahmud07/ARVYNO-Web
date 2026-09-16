@@ -1,5 +1,5 @@
 export const BRAND = {
-  name: "ARVYNO Fashion",
+  name: "ARVYNO",
   shortName: "ARVYNO",
   tagline: "WEAR YOUR IDENTITY",
   description: "Premium essentials designed for those who dress with purpose.",

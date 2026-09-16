@@ -34,14 +34,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.arvynobd.com"),
   title: {
-    default: "ARVYNO Fashion — Wear Your Identity | Luxury Fashion & Essentials",
-    template: "%s | ARVYNO Fashion",
+    default: "ARVYNO — Wear Your Identity | Luxury Fashion & Essentials",
+    template: "%s | ARVYNO",
   },
   description:
-    "ARVYNO Fashion is a luxury fashion house offering premium minimalist t-shirts, tailored shirts, and contemporary essentials. Crafted with precision for those who dress with purpose.",
+    "ARVYNO is a luxury fashion house offering premium minimalist t-shirts, tailored shirts, and contemporary essentials. Crafted with precision for those who dress with purpose.",
   keywords: [
-    "ARVYNO Fashion",
     "ARVYNO",
+    "ARVYNO Fashion",
     "ARVYNO BD",
     "Luxury Fashion",
     "Wear Your Identity",
@@ -51,9 +51,9 @@ export const metadata: Metadata = {
     "Minimalist Fashion Dhaka",
     "Cash on Delivery Bangladesh Clothing",
   ],
-  authors: [{ name: "ARVYNO Fashion" }],
-  creator: "ARVYNO Fashion",
-  publisher: "ARVYNO Fashion",
+  authors: [{ name: "ARVYNO" }],
+  creator: "ARVYNO",
+  publisher: "ARVYNO",
   formatDetection: {
     email: false,
     address: false,
@@ -66,22 +66,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://www.arvynobd.com",
-    title: "ARVYNO Fashion — Wear Your Identity",
+    title: "ARVYNO — Wear Your Identity",
     description:
       "Premium essentials and luxury apparel designed for those who dress with purpose. Free delivery nationwide over ৳3,000.",
-    siteName: "ARVYNO Fashion",
+    siteName: "ARVYNO",
     images: [
       {
         url: "/images/banners/hero-banner.png",
         width: 1200,
         height: 630,
-        alt: "ARVYNO Fashion — Wear Your Identity",
+        alt: "ARVYNO — Wear Your Identity",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ARVYNO Fashion — Wear Your Identity",
+    title: "ARVYNO — Wear Your Identity",
     description: "Premium fashion essentials crafted with luxury precision.",
     images: ["/images/banners/hero-banner.png"],
   },
