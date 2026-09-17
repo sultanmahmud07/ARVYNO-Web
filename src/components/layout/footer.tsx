@@ -107,16 +107,39 @@ export function Footer() {
             </div>
 
             <p className="text-sm text-[#888888] leading-relaxed max-w-sm">
-              ARVYNO is a modern streetwear & luxury menswear brand based in Dhaka,
-              specializing in heavyweight 220+ GSM drop shoulder tees, artisanal acid wash,
-              and 350+ GSM cotton fleece hoodies.
+              {BRAND.description}
             </p>
 
-            <div className="pt-2 text-xs text-[#777777] space-y-1">
-              <p className="text-[#cccccc] font-medium">Flagship Concierge</p>
-              <p>{BRAND.contact.address}</p>
-              <p>Hotline: {BRAND.contact.phone}</p>
-              <p>Email: {BRAND.contact.email}</p>
+            <div className="pt-2 text-xs text-[#777777] space-y-2">
+              <p className="text-[#cccccc] font-semibold uppercase tracking-wider text-[11px]">Contact Us</p>
+              <p className="flex items-start gap-2">
+                <span className="text-[#c9a227] flex-shrink-0">📍</span>
+                <span>{BRAND.contact.addressShort}</span>
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="text-[#c9a227] flex-shrink-0">📞</span>
+                <a href={`tel:${BRAND.contact.phoneRaw}`} className="hover:text-[#c9a227] transition-colors">
+                  {BRAND.contact.phoneDisplay}
+                </a>
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="text-[#c9a227] flex-shrink-0">💬</span>
+                <a
+                  href={BRAND.contact.whatsappLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#25D366] transition-colors flex items-center gap-1.5"
+                >
+                  <span>{BRAND.contact.whatsappDisplay}</span>
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#25D366]/15 text-[#25D366] font-semibold">WhatsApp</span>
+                </a>
+              </p>
+              <p className="flex items-center gap-2">
+                <span className="text-[#c9a227] flex-shrink-0">✉️</span>
+                <a href={`mailto:${BRAND.contact.email}`} className="hover:text-[#c9a227] transition-colors">
+                  {BRAND.contact.email}
+                </a>
+              </p>
             </div>
           </div>
 
@@ -139,24 +162,14 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Customer Care */}
+          {/* Quick Links / Customer Care */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-xs font-semibold text-[#f8f8f6] uppercase tracking-[0.2em] pb-2 border-b border-[#222222]">
-              Customer Care
+              Quick Links
             </h4>
             <ul className="space-y-2.5 text-sm">
-              {FOOTER_LINKS.customerCare.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-[#c9a227] transition-colors inline-block"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-              {FOOTER_LINKS.legal.map((link) => (
-                <li key={link.href}>
+              {FOOTER_LINKS.quickLinks.map((link) => (
+                <li key={link.name}>
                   <Link
                     href={link.href}
                     className="hover:text-[#c9a227] transition-colors inline-block"
@@ -168,7 +181,7 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter Signup */}
+          {/* Newsletter Signup & Follow ARVYNO */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-xs font-semibold text-[#f8f8f6] uppercase tracking-[0.2em] pb-2 border-b border-[#222222]">
               Private Club Newsletter
@@ -208,12 +221,12 @@ export function Footer() {
               </form>
             )}
 
-            {/* Social Links */}
+            {/* Social Links - Follow ARVYNO */}
             <div className="pt-2">
-              <p className="text-[11px] text-[#777777] uppercase tracking-wider mb-2">
-                Follow The House
+              <p className="text-[11px] text-[#777777] uppercase tracking-wider mb-2 font-semibold">
+                Follow ARVYNO
               </p>
-              <div className="flex space-x-4 text-xs">
+              <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs">
                 <a
                   href={BRAND.social.facebook}
                   target="_blank"
@@ -240,6 +253,24 @@ export function Footer() {
                 >
                   TikTok
                 </a>
+                <span className="text-[#333333]">•</span>
+                <a
+                  href={BRAND.social.youtube}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#999999] hover:text-[#c9a227] transition-colors"
+                >
+                  YouTube
+                </a>
+                <span className="text-[#333333]">•</span>
+                <a
+                  href={BRAND.social.pinterest}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#999999] hover:text-[#c9a227] transition-colors"
+                >
+                  Pinterest
+                </a>
               </div>
             </div>
           </div>
@@ -248,7 +279,7 @@ export function Footer() {
 
       {/* Bottom Copyright */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-[#181818] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#666666]">
-        <p>© {new Date().getFullYear()} ARVYNO Atelier Ltd. All Rights Reserved.</p>
+        <p>© 2026 ARVYNO. All Rights Reserved.</p>
         <p className="tracking-widest uppercase text-[10px] text-[#888888]">
           WEAR YOUR IDENTITY — BANGLADESH & WORLDWIDE
         </p>

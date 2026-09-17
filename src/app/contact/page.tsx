@@ -28,7 +28,7 @@ export default function ContactPage() {
           </h1>
           <p className="text-xs sm:text-sm text-[#888888] mt-1.5 max-w-xl">
             Whether you need sizing guidance, order tracking, or styling advice,
-            our Banani atelier team is ready to assist you.
+            our concierge team is ready to assist you.
           </p>
         </div>
       </div>
@@ -43,36 +43,64 @@ export default function ContactPage() {
               </h3>
 
               <div className="space-y-4 text-xs text-[#a0a0a0]">
+                {/* Phone Hotline */}
                 <div className="flex items-start gap-3">
                   <Phone className="w-4 h-4 text-[#c9a227] flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-semibold text-white">Customer Hotline</p>
-                    <p>{BRAND.contact.phone}</p>
+                    <a href={`tel:${BRAND.contact.phoneRaw}`} className="text-[#f8f8f6] hover:text-[#c9a227] transition-colors font-medium">
+                      {BRAND.contact.phoneDisplay}
+                    </a>
                     <p className="text-[11px] text-[#777777]">
-                      Direct WhatsApp support available
+                      Direct phone support during operating hours
                     </p>
                   </div>
                 </div>
 
+                {/* WhatsApp Chat */}
+                <div className="flex items-start gap-3">
+                  <div className="w-4 h-4 text-[#25D366] flex-shrink-0 mt-0.5 font-bold text-sm">💬</div>
+                  <div>
+                    <p className="font-semibold text-white">WhatsApp Support</p>
+                    <a
+                      href={BRAND.contact.whatsappLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#25D366] hover:underline font-medium inline-flex items-center gap-1.5"
+                    >
+                      <span>{BRAND.contact.whatsappDisplay}</span>
+                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#25D366]/15 text-[#25D366] font-semibold">Chat Now →</span>
+                    </a>
+                    <p className="text-[11px] text-[#777777]">
+                      Instant order assistance & size exchange
+                    </p>
+                  </div>
+                </div>
+
+                {/* Email */}
                 <div className="flex items-start gap-3">
                   <Mail className="w-4 h-4 text-[#c9a227] flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-semibold text-white">Email Concierge</p>
-                    <p>{BRAND.contact.email}</p>
+                    <a href={`mailto:${BRAND.contact.email}`} className="text-[#f8f8f6] hover:text-[#c9a227] transition-colors">
+                      {BRAND.contact.email}
+                    </a>
                     <p className="text-[11px] text-[#777777]">
                       Response within 4 business hours
                     </p>
                   </div>
                 </div>
 
+                {/* Address */}
                 <div className="flex items-start gap-3">
                   <MapPin className="w-4 h-4 text-[#c9a227] flex-shrink-0 mt-0.5" />
                   <div>
                     <p className="font-semibold text-white">Flagship Atelier</p>
-                    <p>{BRAND.contact.address}</p>
+                    <p className="leading-relaxed">{BRAND.contact.address}</p>
                   </div>
                 </div>
 
+                {/* Hours */}
                 <div className="flex items-start gap-3">
                   <Clock className="w-4 h-4 text-[#c9a227] flex-shrink-0 mt-0.5" />
                   <div>
@@ -87,7 +115,7 @@ export default function ContactPage() {
               <p className="text-white font-semibold">Track an Existing Order</p>
               <p>
                 Have your Order Reference Number (e.g. ARV-XXXX) ready and message
-                our WhatsApp hotline for real-time dispatch updates.
+                our WhatsApp hotline ({BRAND.contact.whatsappDisplay}) for real-time dispatch updates.
               </p>
             </div>
           </div>
@@ -135,7 +163,7 @@ export default function ContactPage() {
                     <input
                       type="tel"
                       required
-                      placeholder="01700-000000"
+                      placeholder="01XXXXXXXXX"
                       value={form.phone}
                       onChange={(e) =>
                         setForm({ ...form, phone: e.target.value })

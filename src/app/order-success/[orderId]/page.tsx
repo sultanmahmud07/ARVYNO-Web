@@ -63,7 +63,7 @@ export default function OrderSuccessPage() {
               Thank You for Dressing with ARVYNO
             </h1>
             <p className="text-xs sm:text-sm text-[#a0a0a0] leading-relaxed">
-              Your order has been recorded. Our Banani concierge team will prepare
+              Your order has been recorded. Our concierge team will prepare
               and dispatch your parcel for express delivery.
             </p>
           </div>

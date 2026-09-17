@@ -8,15 +8,15 @@ import { ScrollReveal } from "@/components/common/scroll-reveal";
 const LOOKBOOK_ITEMS = [
   {
     image: "/images/products/black-signature-tee.jpg",
-    handle: "@arvyno.style",
-    caption: "The Obsidian 260 GSM Heavy Tee in urban Banani.",
-    href: "/products/signature-monogram-tee-obsidian",
+    handle: "@arvyno_bd",
+    caption: "The Obsidian Heavy Tee in urban Dhaka.",
+    href: "/products",
   },
   {
     image: "/images/products/blue-striped-shirt.jpg",
     handle: "@arvyno.atelier",
     caption: "Egyptian Poplin Striped Shirt with tailored trousers.",
-    href: "/products/classic-sky-blue-striped-shirt",
+    href: "/products",
   },
   {
     image: "/images/banners/drop-sholder.jpg",
@@ -28,13 +28,13 @@ const LOOKBOOK_ITEMS = [
     image: "/images/products/olive-linen-shirt.jpg",
     handle: "@arvyno.daily",
     caption: "Pure French Flax Linen for tropical evenings.",
-    href: "/products/sage-olive-luxury-linen-shirt",
+    href: "/products",
   },
   {
     image: "/images/products/white-signature-tee.jpg",
     handle: "@arvyno.identity",
     caption: "Architectural off-white drape with gold monogram.",
-    href: "/products/signature-monogram-tee-off-white",
+    href: "/products",
   },
 ];
 
@@ -62,7 +62,7 @@ export function SocialGallery() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-[#e5c76b] hover:text-[#ffffff] transition-colors group"
             >
-              <span>Follow @arvyno</span>
+              <span>Follow {BRAND.social.instagramHandle}</span>
               <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           </div>

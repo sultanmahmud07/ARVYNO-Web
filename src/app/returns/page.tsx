@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Breadcrumb } from "@/components/common/breadcrumb";
 import { RotateCcw, Check } from "lucide-react";
 import Link from "next/link";
+import { BRAND } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Returns & Exchanges Policy",
@@ -65,7 +66,14 @@ export default function ReturnsPage() {
             </h3>
             <p className="text-xs text-[#a0a0a0] leading-relaxed">
               Simply message our concierge on WhatsApp at{" "}
-              <span className="text-[#e5c76b] font-semibold">+880 1700-000000</span>{" "}
+              <a
+                href={BRAND.contact.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#25D366] hover:underline font-semibold"
+              >
+                {BRAND.contact.whatsappDisplay}
+              </a>{" "}
               with your Order Number. Our rider will deliver the replacement size
               to your doorstep and collect the return item simultaneously.
             </p>

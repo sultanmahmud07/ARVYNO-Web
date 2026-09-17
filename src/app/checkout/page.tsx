@@ -301,7 +301,7 @@ export default function CheckoutPage() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        placeholder="01700-000000"
+                        placeholder="01XXXXXXXXX"
                         className={`w-full bg-[#141414] border rounded-lg px-3.5 py-3 text-xs text-[#f8f8f6] placeholder-[#666666] focus:outline-none focus:border-[#c9a227] ${errors.phone ? "border-[#ef4444]" : "border-[#2b2b2b]"
                           }`}
                       />

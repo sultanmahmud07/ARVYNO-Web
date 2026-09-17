@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Breadcrumb } from "@/components/common/breadcrumb";
+import { BRAND } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -66,7 +67,9 @@ export default function PrivacyPage() {
             <p>
               If you have any questions regarding your data or would like your
               order history purged, please email us at{" "}
-              <span className="text-[#e5c76b]">concierge@arvynobd.com</span>.
+              <a href={`mailto:${BRAND.contact.email}`} className="text-[#e5c76b] hover:underline">
+                {BRAND.contact.email}
+              </a>.
             </p>
           </section>
         </div>

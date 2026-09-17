@@ -217,26 +217,33 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => setCollectionsOpen((prev) => !prev)}
-                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer ${
-                    collectionsOpen
-                      ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_22px_rgba(201,162,39,0.55)] font-bold scale-[1.02]"
-                      : isCollectionsActive && !isHomeActive
+                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer ${collectionsOpen
+                    ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_22px_rgba(201,162,39,0.55)] font-bold scale-[1.02]"
+                    : isCollectionsActive && !isHomeActive
                       ? "bg-white/15 text-[#e5c76b] border border-[#c9a227]/40 shadow-sm"
                       : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
-                  }`}
+                    }`}
                   aria-expanded={collectionsOpen}
                   aria-haspopup="true"
                 >
                   <span>Collections</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      collectionsOpen ? "rotate-180 text-black font-bold" : "text-[#777777]"
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${collectionsOpen ? "rotate-180 text-black font-bold" : "text-[#777777]"
+                      }`}
                   />
                 </button>
               </div>
 
               {/* 3. Hoodies Link */}
+              <Link
+                href="/categories/drop-shoulder"
+                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isHoodiesActive
+                  ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
+                  : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
+                  }`}
+              >
+                T-Shirt
+              </Link>
               <Link
                 href="/categories/hoodies"
                 className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isHoodiesActive
@@ -255,7 +262,7 @@ export function Navbar() {
                   : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
                   }`}
               >
-                Baggy Pants
+                Baggy
               </Link>
 
               {/* 5. About / Atelier Link */}
@@ -391,11 +398,10 @@ export function Navbar() {
                     key={item.href}
                     href={item.href}
                     onClick={() => setCollectionsOpen(false)}
-                    className={`group relative p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 ${
-                      isActive
-                        ? "bg-[#1f1b12] border-[#c9a227] ring-1 ring-[#c9a227]/60 shadow-[0_0_25px_rgba(201,162,39,0.25)]"
-                        : "bg-[#161616] hover:bg-[#202020] border-[#2c2c2c] hover:border-[#c9a227]/80 hover:shadow-[0_10px_30px_rgba(0,0,0,0.85),0_0_20px_rgba(201,162,39,0.2)] hover:-translate-y-0.5"
-                    }`}
+                    className={`group relative p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 ${isActive
+                      ? "bg-[#1f1b12] border-[#c9a227] ring-1 ring-[#c9a227]/60 shadow-[0_0_25px_rgba(201,162,39,0.25)]"
+                      : "bg-[#161616] hover:bg-[#202020] border-[#2c2c2c] hover:border-[#c9a227]/80 hover:shadow-[0_10px_30px_rgba(0,0,0,0.85),0_0_20px_rgba(201,162,39,0.2)] hover:-translate-y-0.5"
+                      }`}
                   >
                     {/* Left Side: Category Name, Tagline, Price & Badges */}
                     <div className="flex-1 min-w-0 flex flex-col justify-between space-y-2">
@@ -529,20 +535,18 @@ export function Navbar() {
                   <button
                     type="button"
                     onClick={() => setMobileCollectionsOpen((prev) => !prev)}
-                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${
-                      isCollectionsActive && !isHomeActive
-                        ? "bg-white/10 text-[#e5c76b] border border-[#c9a227]/30"
-                        : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
-                    }`}
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${isCollectionsActive && !isHomeActive
+                      ? "bg-white/10 text-[#e5c76b] border border-[#c9a227]/30"
+                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
+                      }`}
                   >
                     <span className="flex items-center gap-2">
                       <Layers className="w-3.5 h-3.5 text-[#c9a227]" />
                       <span>Collections & Categories</span>
                     </span>
                     <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-200 text-[#888888] ${
-                        mobileCollectionsOpen ? "rotate-180 text-[#c9a227]" : ""
-                      }`}
+                      className={`w-3.5 h-3.5 transition-transform duration-200 text-[#888888] ${mobileCollectionsOpen ? "rotate-180 text-[#c9a227]" : ""
+                        }`}
                     />
                   </button>
 
@@ -557,11 +561,10 @@ export function Navbar() {
                               key={item.href}
                               href={item.href}
                               onClick={() => setMobileMenuOpen(false)}
-                              className={`p-2.5 rounded-xl border transition-all flex items-center justify-between gap-3 bg-[#141414] ${
-                                isActive
-                                  ? "bg-[#c9a227]/15 border-[#c9a227]"
-                                  : "border-white/10 hover:border-white/25"
-                              }`}
+                              className={`p-2.5 rounded-xl border transition-all flex items-center justify-between gap-3 bg-[#141414] ${isActive
+                                ? "bg-[#c9a227]/15 border-[#c9a227]"
+                                : "border-white/10 hover:border-white/25"
+                                }`}
                             >
                               <div className="flex-1 min-w-0 space-y-1">
                                 <p className="text-xs font-bold text-[#f8f8f6] group-hover:text-[#e5c76b] truncate">
