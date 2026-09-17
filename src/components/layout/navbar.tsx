@@ -35,14 +35,27 @@ const COLLECTION_ITEMS: DropdownCategory[] = [
     name: "All Menswear",
     href: "/products",
     tagline: "Explore full signature catalog",
-    badge: "20 Designs",
+    badge: "23 Designs",
   },
   {
-    name: "Heavyweight T-Shirts",
-    href: "/categories/t-shirts",
-    tagline: "260 GSM compact combed cotton",
-    badge: "Popular",
+    name: "Drop Shoulder T-Shirts",
+    href: "/categories/drop-shoulder",
+    tagline: "100% soft cotton 220+ GSM oversized fit",
+    badge: "New Drop",
+    icon: <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" />,
+  },
+  {
+    name: "Heavyweight Hoodies",
+    href: "/categories/hoodies",
+    tagline: "350+ GSM fleece & drop-shoulder fits",
+    badge: "Winter Capsule",
     icon: <Flame className="w-3.5 h-3.5 text-[#c9a227]" />,
+  },
+  {
+    name: "Acid Wash T-Shirts",
+    href: "/categories/acid-wash",
+    tagline: "Drop-shoulder fit & mineral wash finish",
+    badge: "Streetwear",
   },
   {
     name: "Luxury Striped Shirts",
@@ -55,7 +68,6 @@ const COLLECTION_ITEMS: DropdownCategory[] = [
     href: "/categories/new-arrivals",
     tagline: "Autumn/Winter 2026 limited capsule",
     badge: "New",
-    icon: <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
   {
     name: "Best Sellers",
@@ -100,6 +112,7 @@ export function Navbar() {
   const isHomeActive = pathname === "/";
   const isCollectionsActive =
     pathname.startsWith("/products") || pathname.startsWith("/categories");
+  const isHoodiesActive = pathname === "/categories/hoodies";
   const isTeesActive = pathname === "/categories/t-shirts";
   const isShirtsActive = pathname === "/categories/shirts";
   const isAboutActive = pathname === "/about";
@@ -229,7 +242,19 @@ export function Navbar() {
                 )}
               </div>
 
-              {/* 3. T-Shirts Link */}
+              {/* 3. Hoodies Link */}
+              <Link
+                href="/categories/hoodies"
+                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
+                  isHoodiesActive
+                    ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
+                    : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
+                }`}
+              >
+                Hoodies
+              </Link>
+
+              {/* 4. T-Shirts Link */}
               <Link
                 href="/categories/t-shirts"
                 className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
@@ -413,6 +438,19 @@ export function Navbar() {
                 </Link>
 
                 <Link
+                  href="/categories/hoodies"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
+                    isHoodiesActive
+                      ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
+                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
+                  }`}
+                >
+                  <span>Hoodies (350+ GSM)</span>
+                  <ChevronRight className="w-4 h-4 opacity-70" />
+                </Link>
+
+                <Link
                   href="/categories/t-shirts"
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
@@ -421,7 +459,7 @@ export function Navbar() {
                       : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
                   }`}
                 >
-                  <span>T-Shirts (260 GSM)</span>
+                  <span>Acid Wash T-Shirts</span>
                   <ChevronRight className="w-4 h-4 opacity-70" />
                 </Link>
 

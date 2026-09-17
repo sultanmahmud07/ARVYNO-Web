@@ -15,11 +15,20 @@ export async function getProducts(filters?: ProductFilterState): Promise<Product
       results = results.filter((p) => p.isBestSeller);
     } else if (cat === "trending") {
       results = results.filter((p) => p.isTrending);
+    } else if (cat === "t-shirts" || cat === "tees") {
+      results = results.filter(
+        (p) =>
+          p.categorySlug === "acid-wash" ||
+          p.categorySlug === "drop-shoulder" ||
+          p.categorySlug === "t-shirts" ||
+          p.category.toLowerCase().includes("t-shirt")
+      );
     } else {
       results = results.filter(
         (p) =>
           p.categorySlug.toLowerCase() === cat ||
-          p.category.toLowerCase() === cat
+          p.category.toLowerCase() === cat ||
+          p.tags.some((t) => t.toLowerCase() === cat)
       );
     }
   }

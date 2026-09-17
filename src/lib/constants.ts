@@ -33,7 +33,9 @@ export const DELIVERY_CONFIG = {
 export const NAV_LINKS = [
   { name: "Home", href: "/" },
   { name: "Shop All", href: "/products" },
-  { name: "T-Shirts", href: "/categories/t-shirts" },
+  { name: "Drop Shoulder", href: "/categories/drop-shoulder" },
+  { name: "Acid Wash", href: "/categories/acid-wash" },
+  { name: "Hoodies", href: "/categories/hoodies" },
   { name: "Shirts", href: "/categories/shirts" },
   { name: "New Arrivals", href: "/categories/new-arrivals" },
   { name: "About", href: "/about" },
@@ -42,7 +44,9 @@ export const NAV_LINKS = [
 export const FOOTER_LINKS = {
   shop: [
     { name: "All Products", href: "/products" },
-    { name: "Premium T-Shirts", href: "/categories/t-shirts" },
+    { name: "Drop Shoulder T-Shirts", href: "/categories/drop-shoulder" },
+    { name: "Acid Wash T-Shirts", href: "/categories/acid-wash" },
+    { name: "Heavyweight Hoodies", href: "/categories/hoodies" },
     { name: "Designer Shirts", href: "/categories/shirts" },
     { name: "New Arrivals", href: "/categories/new-arrivals" },
     { name: "Best Sellers", href: "/categories/best-sellers" },

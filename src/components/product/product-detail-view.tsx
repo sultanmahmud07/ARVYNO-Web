@@ -29,6 +29,7 @@ import {
   Layers,
   Feather,
   Flame,
+  PhoneCall,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/common/scroll-reveal";
 
@@ -143,15 +144,15 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
   return (
     <div className="space-y-16 lg:space-y-24">
-      
+
       {/* 1. TOP BUY BOX & IMAGE GALLERY (Sticky Gallery on Left) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
-        
+
         {/* Left Media Gallery (Sticky on Desktop) */}
         <div className="lg:col-span-7 lg:sticky lg:top-28 space-y-4">
-          
+
           <div className="flex flex-col-reverse sm:flex-row gap-4">
-            
+
             {/* Thumbnail Selector Strip (Vertical on Desktop, Horizontal on Mobile) */}
             {product.images.length > 1 && (
               <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-y-auto max-h-[580px] pb-2 sm:pb-0 flex-shrink-0">
@@ -160,11 +161,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
                     aria-label={`View image angle ${idx + 1}`}
-                    className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-xl overflow-hidden bg-[#141414] border transition-all cursor-pointer flex-shrink-0 ${
-                      activeImageIndex === idx
+                    className={`relative w-16 h-20 sm:w-20 sm:h-24 rounded-xl overflow-hidden bg-[#141414] border transition-all cursor-pointer flex-shrink-0 ${activeImageIndex === idx
                         ? "border-[#c9a227] ring-2 ring-[#c9a227]/40 scale-105 shadow-lg"
                         : "border-[#282828] opacity-60 hover:opacity-100 hover:border-[#444444]"
-                    }`}
+                      }`}
                   >
                     <Image
                       src={img}
@@ -234,11 +234,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                     toggleWishlist(product.id);
                   }}
                   aria-label={inWishlist ? "Remove from wishlist" : "Add to wishlist"}
-                  className={`p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer ${
-                    inWishlist
+                  className={`p-2.5 rounded-full backdrop-blur-md transition-all cursor-pointer ${inWishlist
                       ? "bg-[#c9a227] text-black scale-105 shadow-lg"
                       : "bg-black/60 text-[#f8f8f6] hover:bg-black/90 border border-white/15"
-                  }`}
+                    }`}
                 >
                   <Heart className={`w-4 h-4 ${inWishlist ? "fill-black" : ""}`} />
                 </button>
@@ -282,20 +281,18 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
         {/* Right Product Buy Information */}
         <div className="lg:col-span-5 space-y-5 sm:space-y-6">
-          
+
           <div>
             {/* Category & Stock */}
             <div className="flex items-center justify-between text-xs text-[#888888] uppercase tracking-widest pb-1">
               <span className="text-[#c9a227] font-semibold">{product.category}</span>
               <span
-                className={`flex items-center gap-1.5 font-medium ${
-                  product.stock > 0 ? "text-[#4ade80]" : "text-[#f87171]"
-                }`}
+                className={`flex items-center gap-1.5 font-medium ${product.stock > 0 ? "text-[#4ade80]" : "text-[#f87171]"
+                  }`}
               >
                 <span
-                  className={`w-2 h-2 rounded-full ${
-                    product.stock > 0 ? "bg-[#4ade80]" : "bg-[#f87171]"
-                  }`}
+                  className={`w-2 h-2 rounded-full ${product.stock > 0 ? "bg-[#4ade80]" : "bg-[#f87171]"
+                    }`}
                 />
                 {product.stock > 0 ? "In Stock (Ready to Ship)" : "Sold Out"}
               </span>
@@ -363,11 +360,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                 <button
                   key={c.name}
                   onClick={() => setSelectedColor(c.name)}
-                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border text-xs font-medium transition-all cursor-pointer ${
-                    selectedColor === c.name
+                  className={`flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border text-xs font-medium transition-all cursor-pointer ${selectedColor === c.name
                       ? "bg-[#1f1f1f] text-[#f8f8f6] border-[#c9a227] ring-1 ring-[#c9a227]"
                       : "bg-[#121212] text-[#888888] border-[#292929] hover:border-[#444444]"
-                  }`}
+                    }`}
                 >
                   <span
                     className="w-3 h-3 sm:w-3.5 sm:h-3.5 rounded-full border border-black/40"
@@ -393,18 +389,17 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                 <span>Size Guide</span>
               </button>
             </div>
-            
+
             {/* Sized buttons — Refined & smaller on mobile screens */}
             <div className="grid grid-cols-5 gap-1.5 sm:gap-2.5">
               {product.sizes.map((size) => (
                 <button
                   key={size}
                   onClick={() => setSelectedSize(size)}
-                  className={`py-1.5 sm:py-3 rounded-lg sm:rounded-xl border text-[11px] sm:text-xs font-bold transition-all cursor-pointer ${
-                    selectedSize === size
+                  className={`py-1.5 sm:py-3 rounded-lg sm:rounded-xl border text-[11px] sm:text-xs font-bold transition-all cursor-pointer ${selectedSize === size
                       ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black border-[#c9a227] shadow-lg shadow-[#c9a227]/15"
                       : "bg-[#141414] text-[#cccccc] border-[#282828] hover:border-[#444444]"
-                  }`}
+                    }`}
                 >
                   {size}
                 </button>
@@ -479,6 +474,17 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             </div>
           </div>
 
+          {/* Order Phone Confirmation & Color Selection Notice */}
+          <div className="p-3 sm:p-3.5 bg-gradient-to-r from-[#c9a227]/15 via-[#c9a227]/10 to-transparent border border-[#c9a227]/30 rounded-xl flex items-start gap-2.5 sm:gap-3 text-[11px] sm:text-xs text-[#e5c76b] leading-relaxed shadow-sm">
+            <PhoneCall className="w-4 h-4 text-[#e5c76b] flex-shrink-0 mt-0.5 animate-pulse" />
+            <div>
+              <p className="font-bold text-[#f8f8f6] tracking-wide">Order Confirmation & Color Choice</p>
+              <p className="text-[#cccccc] text-[10px] sm:text-[11px] mt-0.5 leading-relaxed">
+                After submitting your order from our website, our representative will call you for final order confirmation — then tell us which color you would like to get.
+              </p>
+            </div>
+          </div>
+
           {/* Quick Accordions */}
           <div className="space-y-2 pt-2 border-t border-[#1f1f1f]">
             {/* Details & Specs */}
@@ -489,9 +495,8 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               >
                 <span>Product Specifications & Details</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 ${
-                    openAccordions.details ? "rotate-180 text-[#c9a227]" : ""
-                  }`}
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 ${openAccordions.details ? "rotate-180 text-[#c9a227]" : ""
+                    }`}
                 />
               </button>
               {openAccordions.details && (
@@ -513,9 +518,8 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               >
                 <span>Fabric & Garment Care</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 ${
-                    openAccordions.fabric ? "rotate-180 text-[#c9a227]" : ""
-                  }`}
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 ${openAccordions.fabric ? "rotate-180 text-[#c9a227]" : ""
+                    }`}
                 />
               </button>
               {openAccordions.fabric && (
@@ -537,9 +541,8 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               >
                 <span>Shipping, Delivery & Returns</span>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 ${
-                    openAccordions.shipping ? "rotate-180 text-[#c9a227]" : ""
-                  }`}
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 ${openAccordions.shipping ? "rotate-180 text-[#c9a227]" : ""
+                    }`}
                 />
               </button>
               {openAccordions.shipping && (
@@ -567,17 +570,16 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
       {/* 2. RICH BOTTOM PRODUCT DETAIL SECTIONS (Fills Page Space with Complete Product Information) */}
       <ScrollReveal direction="up" duration={700}>
         <div className="border-t border-[#202020] pt-8 sm:pt-12 space-y-6 sm:space-y-8">
-          
+
           {/* Interactive Editorial Tab Navigation (Sleek, Compact, & Fully Visible on Mobile) */}
           <div className="w-full overflow-x-auto no-scrollbar pb-1">
             <div className="flex items-center gap-1 sm:gap-2 p-1 sm:p-1.5 bg-[#101010] border border-[#222222] rounded-xl sm:rounded-2xl max-w-fit mx-auto">
               <button
                 onClick={() => setActiveTab("specs")}
-                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${
-                  activeTab === "specs"
+                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${activeTab === "specs"
                     ? "bg-[#c9a227] text-black shadow-md shadow-[#c9a227]/25"
                     : "text-[#888888] hover:text-[#f8f8f6] hover:bg-[#181818]"
-                }`}
+                  }`}
               >
                 <span className="sm:hidden">Specs</span>
                 <span className="hidden sm:inline">Atelier Specifications</span>
@@ -585,11 +587,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
               <button
                 onClick={() => setActiveTab("size-guide")}
-                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${
-                  activeTab === "size-guide"
+                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${activeTab === "size-guide"
                     ? "bg-[#c9a227] text-black shadow-md shadow-[#c9a227]/25"
                     : "text-[#888888] hover:text-[#f8f8f6] hover:bg-[#181818]"
-                }`}
+                  }`}
               >
                 <span className="sm:hidden">Measurements</span>
                 <span className="hidden sm:inline">Size & Measurements</span>
@@ -597,11 +598,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
               <button
                 onClick={() => setActiveTab("fabric-care")}
-                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${
-                  activeTab === "fabric-care"
+                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${activeTab === "fabric-care"
                     ? "bg-[#c9a227] text-black shadow-md shadow-[#c9a227]/25"
                     : "text-[#888888] hover:text-[#f8f8f6] hover:bg-[#181818]"
-                }`}
+                  }`}
               >
                 <span className="sm:hidden">Care</span>
                 <span className="hidden sm:inline">Fabric & Care</span>
@@ -609,22 +609,20 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
               <button
                 onClick={() => setActiveTab("reviews")}
-                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${
-                  activeTab === "reviews"
+                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${activeTab === "reviews"
                     ? "bg-[#c9a227] text-black shadow-md shadow-[#c9a227]/25"
                     : "text-[#888888] hover:text-[#f8f8f6] hover:bg-[#181818]"
-                }`}
+                  }`}
               >
                 Reviews ({product.reviewCount})
               </button>
 
               <button
                 onClick={() => setActiveTab("shipping")}
-                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${
-                  activeTab === "shipping"
+                className={`px-2.5 sm:px-5 py-1.5 sm:py-2.5 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold uppercase tracking-wider transition-all flex-shrink-0 cursor-pointer whitespace-nowrap ${activeTab === "shipping"
                     ? "bg-[#c9a227] text-black shadow-md shadow-[#c9a227]/25"
                     : "text-[#888888] hover:text-[#f8f8f6] hover:bg-[#181818]"
-                }`}
+                  }`}
               >
                 <span className="sm:hidden">Shipping</span>
                 <span className="hidden sm:inline">Shipping & Policy</span>
@@ -634,7 +632,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
           {/* Tab Content Display */}
           <div className="glass-card rounded-xl sm:rounded-3xl p-4 sm:p-10 border border-[#222222]">
-            
+
             {/* Tab 1: Specifications */}
             {activeTab === "specs" && (
               <div className="space-y-6 sm:space-y-8 animate-fade-in">
@@ -669,68 +667,120 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
             {/* Tab 2: Size & Measurements Guide */}
             {activeTab === "size-guide" && (
-              <div className="space-y-4 sm:space-y-6 animate-fade-in">
+              <div className="space-y-6 sm:space-y-8 animate-fade-in">
                 <div className="max-w-2xl space-y-1.5 sm:space-y-2">
                   <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em] text-[#c9a227]">
                     Fit & Proportions
                   </p>
                   <h3 className="font-serif text-xl sm:text-3xl font-bold text-[#f8f8f6]">
-                    Finished Garment Dimensions
+                    Drop Shoulder T-Shirt Size Chart
                   </h3>
                   <p className="text-xs sm:text-sm text-[#a0a0a0] font-light">
-                    All dimensions are in inches. Designed with an intentional contemporary drape.
+                    100% soft cotton 220+ GSM, Fashionable Unisex Wear. All dimensions are in inches.
                   </p>
                 </div>
 
-                <div className="overflow-x-auto -mx-2 sm:mx-0">
+                {/* Garment Fit Highlights */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-3 rounded-xl bg-[#141414] border border-[#222222] text-left">
+                    <span className="text-[10px] uppercase font-bold text-[#c9a227] tracking-wider block">Fitting</span>
+                    <span className="text-xs font-semibold text-[#f8f8f6]">Oversized Silhouette</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-[#141414] border border-[#222222] text-left">
+                    <span className="text-[10px] uppercase font-bold text-[#c9a227] tracking-wider block">Fabrics</span>
+                    <span className="text-xs font-semibold text-[#f8f8f6]">100% Soft Cotton 220+ GSM</span>
+                  </div>
+                  <div className="p-3 rounded-xl bg-[#141414] border border-[#222222] text-left">
+                    <span className="text-[10px] uppercase font-bold text-[#c9a227] tracking-wider block">Wear</span>
+                    <span className="text-xs font-semibold text-[#f8f8f6]">Fashionable Unisex Wear</span>
+                  </div>
+                </div>
+
+                {/* Size Table */}
+                <div className="overflow-x-auto -mx-2 sm:mx-0 border border-[#222222] rounded-xl">
                   <table className="w-full text-[11px] sm:text-xs text-left">
-                    <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider">
+                    <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider font-semibold">
                       <tr>
-                        <th className="p-2 sm:p-3.5">Size</th>
-                        <th className="p-2 sm:p-3.5">Chest (in)</th>
-                        <th className="p-2 sm:p-3.5">Length (in)</th>
-                        <th className="p-2 sm:p-3.5">Sleeve (in)</th>
-                        <th className="p-2 sm:p-3.5">Fit Recommendation</th>
+                        <th className="p-2.5 sm:p-3.5">Size</th>
+                        <th className="p-2.5 sm:p-3.5">Length (Inch)</th>
+                        <th className="p-2.5 sm:p-3.5">Chest (Inch)</th>
+                        <th className="p-2.5 sm:p-3.5">Sleeve (Inch)</th>
+                        <th className="p-2.5 sm:p-3.5">Fit Recommendation</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#222222] text-[#cccccc]">
-                      <tr>
-                        <td className="p-2 sm:p-3.5 font-bold text-white">S (Small)</td>
-                        <td className="p-2 sm:p-3.5">38 – 40</td>
-                        <td className="p-2 sm:p-3.5">28.0</td>
-                        <td className="p-2 sm:p-3.5">8.5</td>
-                        <td className="p-2 sm:p-3.5 text-[#e5c76b]">Tailored Fit</td>
+                      <tr className="hover:bg-[#161616] transition-colors">
+                        <td className="p-2.5 sm:p-3.5 font-bold text-white">M (Medium)</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">27</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">42</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">8&quot;04</td>
+                        <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Standard / Relaxed Fit</td>
                       </tr>
-                      <tr>
-                        <td className="p-2 sm:p-3.5 font-bold text-white">M (Medium)</td>
-                        <td className="p-2 sm:p-3.5">40 – 42</td>
-                        <td className="p-2 sm:p-3.5">29.0</td>
-                        <td className="p-2 sm:p-3.5">9.0</td>
-                        <td className="p-2 sm:p-3.5 text-[#e5c76b]">Standard / Relaxed</td>
+                      <tr className="hover:bg-[#161616] transition-colors">
+                        <td className="p-2.5 sm:p-3.5 font-bold text-white">L (Large)</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">28</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">44</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;00</td>
+                        <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Relaxed Streetwear</td>
                       </tr>
-                      <tr>
-                        <td className="p-2 sm:p-3.5 font-bold text-white">L (Large)</td>
-                        <td className="p-2 sm:p-3.5">42 – 44</td>
-                        <td className="p-2 sm:p-3.5">30.0</td>
-                        <td className="p-2 sm:p-3.5">9.5</td>
-                        <td className="p-2 sm:p-3.5 text-[#e5c76b]">Elevated Drape</td>
+                      <tr className="hover:bg-[#161616] transition-colors">
+                        <td className="p-2.5 sm:p-3.5 font-bold text-white">XL (Extra Large)</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">26</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">46</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;04</td>
+                        <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Drop Shoulder Silhouette</td>
                       </tr>
-                      <tr>
-                        <td className="p-2 sm:p-3.5 font-bold text-white">XL (Extra Large)</td>
-                        <td className="p-2 sm:p-3.5">44 – 46</td>
-                        <td className="p-2 sm:p-3.5">31.0</td>
-                        <td className="p-2 sm:p-3.5">10.0</td>
-                        <td className="p-2 sm:p-3.5 text-[#e5c76b]">Drop Shoulder Silhouette</td>
-                      </tr>
-                      <tr>
-                        <td className="p-2 sm:p-3.5 font-bold text-white">XXL (Double XL)</td>
-                        <td className="p-2 sm:p-3.5">46 – 48</td>
-                        <td className="p-2 sm:p-3.5">32.0</td>
-                        <td className="p-2 sm:p-3.5">10.5</td>
-                        <td className="p-2 sm:p-3.5 text-[#e5c76b]">Generous Oversized</td>
+                      <tr className="hover:bg-[#161616] transition-colors">
+                        <td className="p-2.5 sm:p-3.5 font-bold text-white">2XL / XXL (Double XL)</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">30</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">48</td>
+                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;04</td>
+                        <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Generous Oversized Fit</td>
                       </tr>
                     </tbody>
                   </table>
+                </div>
+
+                {/* HOW TO MEASURE Guide */}
+                <div className="p-4 sm:p-6 rounded-2xl bg-[#111111] border border-[#262626] space-y-4 text-left">
+                  <div className="flex items-center gap-2">
+                    <Ruler className="w-4 h-4 text-[#c9a227]" />
+                    <h4 className="font-serif text-sm sm:text-base font-bold text-[#f8f8f6] uppercase tracking-wider">
+                      How To Measure
+                    </h4>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                    <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">1</span>
+                        <h5 className="text-xs font-bold text-[#f8f8f6]">Length</h5>
+                      </div>
+                      <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                        Measure straight from the highest shoulder seam beside the neckband down to the bottom edge hem.
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">2</span>
+                        <h5 className="text-xs font-bold text-[#f8f8f6]">Chest</h5>
+                      </div>
+                      <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                        Measure straight across chest from armpit to armpit and calculate total circumference around the body.
+                      </p>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">3</span>
+                        <h5 className="text-xs font-bold text-[#f8f8f6]">Sleeve</h5>
+                      </div>
+                      <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                        Measure from the relaxed drop-shoulder seam straight down along the sleeve to the cuff opening.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
@@ -949,11 +999,10 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                   setActiveImageIndex(idx);
                   setLightboxZoomLevel(1);
                 }}
-                className={`relative w-14 h-18 rounded-lg overflow-hidden border transition-all cursor-pointer ${
-                  activeImageIndex === idx
+                className={`relative w-14 h-18 rounded-lg overflow-hidden border transition-all cursor-pointer ${activeImageIndex === idx
                     ? "border-[#c9a227] ring-2 ring-[#c9a227] scale-105"
                     : "border-white/20 opacity-60 hover:opacity-100"
-                }`}
+                  }`}
               >
                 <Image src={img} alt={`Thumbnail ${idx + 1}`} fill sizes="60px" className="object-cover" />
               </button>
@@ -965,69 +1014,98 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
       {/* 4. SIZE GUIDE MODAL */}
       {sizeGuideOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" role="dialog" aria-modal="true">
-          <div className="relative w-full max-w-lg glass-modal rounded-2xl p-6 sm:p-8 space-y-6 shadow-2xl border border-[#2d2d2d] animate-in zoom-in-95 duration-200">
-            <div className="flex items-center justify-between pb-4 border-b border-[#222222]">
+          <div className="relative w-full max-w-xl glass-modal rounded-2xl p-5 sm:p-7 space-y-5 shadow-2xl border border-[#2d2d2d] animate-in zoom-in-95 duration-200 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3.5 border-b border-[#222222]">
               <div className="flex items-center gap-2">
                 <Ruler className="w-5 h-5 text-[#c9a227]" />
                 <h3 className="font-serif text-lg font-bold text-[#f8f8f6]">
-                  ARVYNO Luxury Size Chart
+                  Drop Shoulder T-Shirt Size Chart
                 </h3>
               </div>
               <button
                 onClick={() => setSizeGuideOpen(false)}
-                className="text-[#777777] hover:text-[#f8f8f6] cursor-pointer"
+                className="text-[#777777] hover:text-[#f8f8f6] cursor-pointer p-1"
               >
                 ✕
               </button>
             </div>
 
-            <div className="overflow-x-auto">
+            {/* Garment Highlights */}
+            <div className="grid grid-cols-3 gap-2 text-left">
+              <div className="p-2.5 rounded-lg bg-[#141414] border border-[#222222]">
+                <span className="text-[9px] uppercase font-bold text-[#c9a227] tracking-wider block">Fitting</span>
+                <span className="text-[11px] font-semibold text-[#f8f8f6]">Oversized</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-[#141414] border border-[#222222]">
+                <span className="text-[9px] uppercase font-bold text-[#c9a227] tracking-wider block">Fabrics</span>
+                <span className="text-[11px] font-semibold text-[#f8f8f6]">100% Cotton (220+ GSM)</span>
+              </div>
+              <div className="p-2.5 rounded-lg bg-[#141414] border border-[#222222]">
+                <span className="text-[9px] uppercase font-bold text-[#c9a227] tracking-wider block">Wear</span>
+                <span className="text-[11px] font-semibold text-[#f8f8f6]">Unisex</span>
+              </div>
+            </div>
+
+            {/* Table */}
+            <div className="overflow-x-auto border border-[#222222] rounded-xl">
               <table className="w-full text-xs text-left">
-                <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider">
+                <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider font-semibold">
                   <tr>
-                    <th className="p-3">Size</th>
-                    <th className="p-3">Chest (in)</th>
-                    <th className="p-3">Length (in)</th>
-                    <th className="p-3">Sleeve (in)</th>
+                    <th className="p-2.5 sm:p-3">Size</th>
+                    <th className="p-2.5 sm:p-3">Length (Inch)</th>
+                    <th className="p-2.5 sm:p-3">Chest (Inch)</th>
+                    <th className="p-2.5 sm:p-3">Sleeve (Inch)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#222222] text-[#cccccc]">
-                  <tr>
-                    <td className="p-3 font-bold text-white">S</td>
-                    <td className="p-3">38 – 40</td>
-                    <td className="p-3">28</td>
-                    <td className="p-3">8.5</td>
+                  <tr className="hover:bg-[#161616]">
+                    <td className="p-2.5 sm:p-3 font-bold text-white">M</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">27</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">42</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">8&quot;04</td>
                   </tr>
-                  <tr>
-                    <td className="p-3 font-bold text-white">M</td>
-                    <td className="p-3">40 – 42</td>
-                    <td className="p-3">29</td>
-                    <td className="p-3">9.0</td>
+                  <tr className="hover:bg-[#161616]">
+                    <td className="p-2.5 sm:p-3 font-bold text-white">L</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">28</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">44</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;00</td>
                   </tr>
-                  <tr>
-                    <td className="p-3 font-bold text-white">L</td>
-                    <td className="p-3">42 – 44</td>
-                    <td className="p-3">30</td>
-                    <td className="p-3">9.5</td>
+                  <tr className="hover:bg-[#161616]">
+                    <td className="p-2.5 sm:p-3 font-bold text-white">XL</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">26</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">46</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;04</td>
                   </tr>
-                  <tr>
-                    <td className="p-3 font-bold text-white">XL</td>
-                    <td className="p-3">44 – 46</td>
-                    <td className="p-3">31</td>
-                    <td className="p-3">10.0</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3 font-bold text-white">XXL</td>
-                    <td className="p-3">46 – 48</td>
-                    <td className="p-3">32</td>
-                    <td className="p-3">10.5</td>
+                  <tr className="hover:bg-[#161616]">
+                    <td className="p-2.5 sm:p-3 font-bold text-white">2XL</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">30</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">48</td>
+                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;04</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
+            {/* How to measure */}
+            <div className="p-3.5 rounded-xl bg-[#141414] border border-[#242424] space-y-2 text-left">
+              <h4 className="text-xs font-bold text-[#e5c76b] uppercase tracking-wider">
+                How To Measure
+              </h4>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] text-[#a0a0a0]">
+                <div>
+                  <strong className="text-white block">1. Length:</strong> Collar seam straight down to bottom hem.
+                </div>
+                <div>
+                  <strong className="text-white block">2. Chest:</strong> Pit-to-pit chest measurement circumference.
+                </div>
+                <div>
+                  <strong className="text-white block">3. Sleeve:</strong> Drop shoulder seam down to sleeve cuff.
+                </div>
+              </div>
+            </div>
+
             <p className="text-[11px] text-[#888888] leading-relaxed">
-              * Measurements reflect the finished garment dimensions. For an oversized look, we recommend staying true to your standard size.
+              * Measurements reflect the finished garment dimensions. Fits true to modern oversized streetwear sizing.
             </p>
 
             <button

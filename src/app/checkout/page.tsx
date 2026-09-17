@@ -513,6 +513,17 @@ export default function CheckoutPage() {
                   )}
                 </button>
 
+                {/* Order Confirmation Notice */}
+                <div className="p-3 bg-[#c9a227]/10 border border-[#c9a227]/25 rounded-xl flex items-start gap-2.5 text-[11px] text-[#e5c76b] text-left leading-relaxed">
+                  <ShieldCheck className="w-4 h-4 text-[#c9a227] flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-[#f8f8f6]">Phone Confirmation & Color Choice</p>
+                    <p className="text-[#a0a0a0] text-[10px] mt-0.5 leading-relaxed">
+                      After submitting your order from our website, our representative will call you for final order confirmation — then tell us which color you would like to get.
+                    </p>
+                  </div>
+                </div>
+
                 <div className="text-[11px] text-center text-[#666666] space-y-1">
                   <p>✓ No advance payment or card required.</p>
                   <p>✓ 7-Day size exchange guaranteed.</p>

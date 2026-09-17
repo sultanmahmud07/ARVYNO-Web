@@ -8,7 +8,7 @@ import { ArrowUpRight } from "lucide-react";
 export const metadata: Metadata = {
   title: "Categories & Collections",
   description:
-    "Discover ARVYNO categories: Premium Heavyweight T-Shirts, Tailored Striped Shirts, New Arrivals, and Best Sellers.",
+    "Discover ARVYNO categories: Heavyweight Hoodies (350+ GSM), Premium T-Shirts (260 GSM), Tailored Striped Shirts, New Arrivals, and Best Sellers.",
 };
 
 export default async function CategoriesPage() {
@@ -25,8 +25,7 @@ export default async function CategoriesPage() {
               Curated Categories
             </h1>
             <p className="text-xs sm:text-sm text-[#888888] max-w-2xl leading-relaxed">
-              Explore our specialized collections, from 260 GSM organic tees to
-              tailored Egyptian poplin striped shirts.
+              Explore our specialized collections, from 350+ GSM fleece hoodies and 260 GSM organic tees to tailored Egyptian poplin striped shirts.
             </p>
           </div>
         </div>

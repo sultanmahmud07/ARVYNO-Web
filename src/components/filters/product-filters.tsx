@@ -11,10 +11,13 @@ const SIZES: ProductSize[] = ["S", "M", "L", "XL", "XXL"];
 const COLORS = [
   { name: "Black", hex: "#0a0a0a" },
   { name: "White", hex: "#f5f5f0" },
+  { name: "Cream", hex: "#f3e8d6" },
+  { name: "Maroon", hex: "#6b1d2f" },
   { name: "Sand", hex: "#d8c5aa" },
   { name: "Navy", hex: "#1c2638" },
   { name: "Olive", hex: "#636e52" },
   { name: "Blue", hex: "#7ba4c9" },
+  { name: "Pink", hex: "#dcae96" },
 ];
 
 const SORT_OPTIONS: { label: string; value: SortOption }[] = [
