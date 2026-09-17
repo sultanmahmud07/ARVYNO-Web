@@ -58,7 +58,7 @@ const HERO_SLIDES: HeroSlide[] = [
       { value: "100%", unit: "Pure", label: "Egyptian Poplin" },
       { value: "COD", unit: "Ready", label: "Nationwide Express" },
     ],
-    image: "/images/banners/hero-banner.png",
+    image: "/images/banners/banner-1.png",
     imageAlt: "ARVYNO Luxury Collection — Wear Your Identity",
     overlayCard: {
       icon: Award,
@@ -89,7 +89,7 @@ const HERO_SLIDES: HeroSlide[] = [
       { value: "Twin", unit: "Needle", label: "Zero-Sag Collar" },
       { value: "Bio-Wash", unit: "Soft", label: "Pre-Shrunk Texture" },
     ],
-    image: "/images/banners/welcome-tee-banner.jpg",
+    image: "/images/banners/banner-2.png",
     imageAlt: "ARVYNO Heavyweight T-Shirt Collection",
     overlayCard: {
       icon: Sparkles,
@@ -120,7 +120,7 @@ const HERO_SLIDES: HeroSlide[] = [
       { value: "MOP", unit: "Finish", label: "Lustrous Fasteners" },
       { value: "Modern", unit: "Fit", label: "Semi-Spread Collar" },
     ],
-    image: "/images/banners/striped-shirts-banner.png",
+    image: "/images/banners/banner-3.png",
     imageAlt: "ARVYNO Luxury Striped Shirts Collection",
     overlayCard: {
       icon: Award,
@@ -210,22 +210,21 @@ export function HeroSection() {
       onTouchEnd={handleTouchEnd}
     >
       {/* Background Animated Ambient Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#c9a227]/10 rounded-full blur-[160px] pointer-events-none animate-float-slow" />
-      <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#e5c76b]/8 rounded-full blur-[140px] pointer-events-none animate-pulse-glow" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[#c9a227]/6 rounded-full blur-[160px] pointer-events-none animate-float-slow" />
+      <div className="absolute bottom-10 right-10 w-[450px] h-[450px] bg-[#e5c76b]/5 rounded-full blur-[140px] pointer-events-none animate-pulse-glow" />
 
       {/* Main Slide Master Frame */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-4 sm:py-6">
-        
+
         {/* Panoramic Banner Card with Smart Dissolve: Right Side Clearly Visible, Left Side Faded */}
         <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#c9a227]/30 shadow-2xl bg-[#0a0a0a] min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] flex items-center group animate-border-breathing">
-          
+
           {/* Background Sliding Images with Right Visibility & Left Dissolve Mask */}
           {HERO_SLIDES.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                index === currentSlide ? "opacity-100 z-0 scale-100" : "opacity-0 z-0 scale-105 pointer-events-none"
-              }`}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? "opacity-100 z-0 scale-100" : "opacity-0 z-0 scale-105 pointer-events-none"
+                }`}
             >
               <Image
                 src={slide.image}
@@ -236,18 +235,15 @@ export function HeroSection() {
                 className="object-cover object-right sm:object-[75%_center] lg:object-[80%_center] group-hover:scale-103 transition-transform duration-1000 ease-out"
               />
 
-              {/* Smart Horizontal Dissolve Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] from-15% via-[#0a0a0a]/95 via-42% via-[#0a0a0a]/50 via-62% to-transparent to-90%" />
-              
-              {/* Vertical vignettes */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/50" />
-              <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/70 via-transparent to-transparent" />
+              {/* Left-Side Contrast Gradient Overlay: Rich on the left for crisp text contrast, seamlessly transitioning to transparent on the right */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/90 from-0% via-[#0a0a0a]/70 via-35% via-[#0a0a0a]/25 via-55% to-transparent to-80%" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent sm:hidden" />
             </div>
           ))}
 
           {/* Left Column: Changing Editorial Text & Actions over Dark Dissolve */}
           <div className="relative z-10 max-w-xl sm:max-w-2xl p-6 sm:p-10 lg:p-14 space-y-6 sm:space-y-7 text-left">
-            
+
             {/* Top Brand Pill with Dynamic Icon */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#c9a227]/15 border border-[#c9a227]/50 text-xs font-semibold uppercase tracking-[0.25em] text-[#e5c76b] shadow-sm backdrop-blur-md">
               <BadgeIcon className="w-3.5 h-3.5 text-[#c9a227] animate-pulse" />
@@ -353,7 +349,7 @@ export function HeroSection() {
       {/* Bottom Slider Pagination Bar & Continuous Progress Line */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-2">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-[#1a1a1a] pt-3">
-          
+
           {/* Slide Indicators with Animated Progress Bar */}
           <div className="flex items-center gap-3">
             {HERO_SLIDES.map((slide, idx) => {
@@ -362,19 +358,17 @@ export function HeroSection() {
                 <button
                   key={slide.id}
                   onClick={() => goToSlide(idx)}
-                  className={`group flex items-center gap-2.5 py-1.5 px-3 rounded-lg transition-all cursor-pointer ${
-                    isActive ? "bg-white/5 border border-[#c9a227]/40 shadow-sm" : "hover:bg-white/5 border border-transparent"
-                  }`}
+                  className={`group flex items-center gap-2.5 py-1.5 px-3 rounded-lg transition-all cursor-pointer ${isActive ? "bg-white/5 border border-[#c9a227]/40 shadow-sm" : "hover:bg-white/5 border border-transparent"
+                    }`}
                   aria-label={`Go to slide ${idx + 1}: ${slide.badgeText}`}
                 >
                   <span
-                    className={`font-mono text-xs font-bold transition-colors ${
-                      isActive ? "text-[#e5c76b]" : "text-[#666666] group-hover:text-[#aaaaaa]"
-                    }`}
+                    className={`font-mono text-xs font-bold transition-colors ${isActive ? "text-[#e5c76b]" : "text-[#666666] group-hover:text-[#aaaaaa]"
+                      }`}
                   >
                     0{idx + 1}
                   </span>
-                  
+
                   {/* Progress Line Indicator */}
                   <div className="w-12 sm:w-16 h-1 bg-[#222222] rounded-full overflow-hidden relative">
                     {isActive && (

@@ -107,9 +107,9 @@ export function Footer() {
             </div>
 
             <p className="text-sm text-[#888888] leading-relaxed max-w-sm">
-              ARVYNO is a modern luxury menswear atelier based in Dhaka,
-              specializing in heavyweight organic t-shirts, tailored striped
-              shirts, and timeless luxury wardrobe essentials.
+              ARVYNO is a modern streetwear & luxury menswear brand based in Dhaka,
+              specializing in heavyweight 220+ GSM drop shoulder tees, artisanal acid wash,
+              and 350+ GSM cotton fleece hoodies.
             </p>
 
             <div className="pt-2 text-xs text-[#777777] space-y-1">

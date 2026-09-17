@@ -23,6 +23,19 @@ export async function getProducts(filters?: ProductFilterState): Promise<Product
           p.categorySlug === "t-shirts" ||
           p.category.toLowerCase().includes("t-shirt")
       );
+    } else if (
+      cat === "baggy-pants" ||
+      cat === "buggy-pants" ||
+      cat === "baggy" ||
+      cat === "buggy" ||
+      cat === "pants"
+    ) {
+      results = results.filter(
+        (p) =>
+          p.categorySlug === "baggy-pants" ||
+          p.category.toLowerCase().includes("baggy") ||
+          p.category.toLowerCase().includes("pant")
+      );
     } else {
       results = results.filter(
         (p) =>

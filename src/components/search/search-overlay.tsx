@@ -10,13 +10,13 @@ import { formatPrice } from "@/lib/utils";
 import { Search, X, ArrowRight, TrendingUp } from "lucide-react";
 
 const POPULAR_TAGS = [
-  "Heavyweight",
-  "Striped",
+  "Baggy Pants",
+  "Drop Shoulder",
+  "Hoodies",
+  "Acid Wash",
+  "Interlock",
   "Oversized",
-  "Linen",
-  "Oxford",
-  "Monogram",
-  "Sand",
+  "220+ GSM",
 ];
 
 export function SearchOverlay() {
@@ -120,7 +120,7 @@ export function SearchOverlay() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search heavyweight tees, striped shirts, linen..."
+              placeholder="Search baggy pants, drop shoulder tees, hoodies, acid wash..."
               className="w-full bg-[#161616] border border-[#2d2d2d] rounded-xl pl-12 pr-12 py-3.5 text-sm sm:text-base text-[#f8f8f6] placeholder-[#666666] focus:outline-none focus:border-[#c9a227] transition-all"
             />
             {query && (

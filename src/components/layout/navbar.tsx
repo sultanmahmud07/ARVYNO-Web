@@ -18,6 +18,7 @@ import {
   ChevronRight,
   Sparkles,
   ArrowRight,
+  ArrowUpRight,
   Flame,
   Layers,
 } from "lucide-react";
@@ -25,54 +26,74 @@ import {
 interface DropdownCategory {
   name: string;
   href: string;
+  image: string;
   tagline: string;
   badge?: string;
+  price: string;
+  itemCount: string;
   icon?: React.ReactNode;
 }
 
 const COLLECTION_ITEMS: DropdownCategory[] = [
   {
-    name: "All Menswear",
-    href: "/products",
-    tagline: "Explore full signature catalog",
-    badge: "23 Designs",
-  },
-  {
     name: "Drop Shoulder T-Shirts",
     href: "/categories/drop-shoulder",
+    image: "/images/products/drop-shoulder/Drop Shoulder T-Shirt (White).png",
     tagline: "100% soft cotton 220+ GSM oversized fit",
     badge: "New Drop",
+    price: "৳599",
+    itemCount: "4 Designs",
     icon: <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
   {
     name: "Heavyweight Hoodies",
     href: "/categories/hoodies",
+    image: "/images/products/hoodies/cream-hoodie.png",
     tagline: "350+ GSM fleece & drop-shoulder fits",
     badge: "Winter Capsule",
+    price: "৳1,050",
+    itemCount: "6 Designs",
     icon: <Flame className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
   {
     name: "Acid Wash T-Shirts",
     href: "/categories/acid-wash",
+    image: "/images/products/acid-wash/acid-wash-black-tee.jpg",
     tagline: "Drop-shoulder fit & mineral wash finish",
     badge: "Streetwear",
+    price: "৳699",
+    itemCount: "3 Designs",
+    icon: <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
   {
-    name: "Luxury Striped Shirts",
-    href: "/categories/shirts",
-    tagline: "100% Egyptian poplin & tailored fits",
+    name: "Premium Baggy Pants",
+    href: "/categories/baggy-pants",
+    image: "/images/products/buggy/buggy-solid-black.jpg",
+    tagline: "Premium interlock fabric & metal tips",
     badge: "Trending",
+    price: "৳720",
+    itemCount: "5 Designs",
+    icon: <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
   {
     name: "New Arrivals Drop",
     href: "/categories/new-arrivals",
+    image: "/images/banners/drop-sholder.jpg",
     tagline: "Autumn/Winter 2026 limited capsule",
-    badge: "New",
+    badge: "New Release",
+    price: "From ৳599",
+    itemCount: "12 Items",
+    icon: <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
   {
-    name: "Best Sellers",
+    name: "Best Sellers Archive",
     href: "/categories/best-sellers",
+    image: "/images/banners/welcome-tee-banner.jpg",
     tagline: "Most coveted wardrobe staples",
+    badge: "Top Rated",
+    price: "Wardrobe Icons",
+    itemCount: "10 Items",
+    icon: <Flame className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
 ];
 
@@ -85,6 +106,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
+  const [mobileCollectionsOpen, setMobileCollectionsOpen] = useState(true);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -112,22 +134,34 @@ export function Navbar() {
   const isHomeActive = pathname === "/";
   const isCollectionsActive =
     pathname.startsWith("/products") || pathname.startsWith("/categories");
+  const isDropShoulderActive = pathname === "/categories/drop-shoulder";
+  const isAcidWashActive = pathname === "/categories/acid-wash";
   const isHoodiesActive = pathname === "/categories/hoodies";
-  const isTeesActive = pathname === "/categories/t-shirts";
-  const isShirtsActive = pathname === "/categories/shirts";
+  const isBaggyActive =
+    pathname === "/categories/baggy-pants" ||
+    pathname === "/categories/buggy-pants" ||
+    pathname === "/categories/baggy";
   const isAboutActive = pathname === "/about";
   const isContactActive = pathname === "/contact";
 
   return (
     <>
-      {/* Floating Pill Navbar Wrapper */}
-      <header className="sticky top-2 sm:top-3.5 z-40 w-full px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto transition-all duration-300">
+      {/* Background Dimming Backdrop for Visual Focus on Open Submenu */}
+      {collectionsOpen && (
         <div
-          className={`w-full rounded-full transition-all duration-300 ${
-            isScrolled
-              ? "bg-[#090909]/92 dark:bg-[#090909]/95 backdrop-blur-2xl border border-white/15 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.65)] py-2 sm:py-2.5 px-3.5 sm:px-5"
-              : "bg-[#0c0c0c]/85 dark:bg-[#0c0c0c]/90 backdrop-blur-xl border border-white/10 dark:border-[#222222] shadow-[0_8px_30px_rgba(0,0,0,0.45)] py-2.5 sm:py-3 px-4 sm:px-6"
-          }`}
+          className="hidden lg:block fixed inset-0 bg-black/75 backdrop-blur-sm z-30 animate-in fade-in duration-200"
+          onClick={() => setCollectionsOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Floating Pill Navbar Wrapper */}
+      <header className="sticky top-2 sm:top-3.5 z-40 w-full px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto transition-all duration-300 relative">
+        <div
+          className={`w-full rounded-full transition-all duration-300 ${isScrolled
+            ? "bg-[#090909]/92 dark:bg-[#090909]/95 backdrop-blur-2xl border border-white/15 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.65)] py-2 sm:py-2.5 px-3.5 sm:px-5"
+            : "bg-[#0c0c0c]/85 dark:bg-[#0c0c0c]/90 backdrop-blur-xl border border-white/10 dark:border-[#222222] shadow-[0_8px_30px_rgba(0,0,0,0.45)] py-2.5 sm:py-3 px-4 sm:px-6"
+            }`}
         >
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             {/* Left: Brand Identity with Icon & Monogram */}
@@ -166,16 +200,15 @@ export function Navbar() {
               {/* 1. Home Link (with Glowing Active Pill) */}
               <Link
                 href="/"
-                className={`relative px-4 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
-                  isHomeActive
-                    ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)] scale-[1.02]"
-                    : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
-                }`}
+                className={`relative px-4 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isHomeActive
+                  ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)] scale-[1.02]"
+                  : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
+                  }`}
               >
                 Home
               </Link>
 
-              {/* 2. Collections Dropdown Menu */}
+              {/* 2. Collections Full-Width Submenu Trigger */}
               <div
                 className="relative"
                 onMouseEnter={handleMouseEnter}
@@ -184,8 +217,10 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => setCollectionsOpen((prev) => !prev)}
-                  className={`flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
-                    isCollectionsActive && !isHomeActive
+                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer ${
+                    collectionsOpen
+                      ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_22px_rgba(201,162,39,0.55)] font-bold scale-[1.02]"
+                      : isCollectionsActive && !isHomeActive
                       ? "bg-white/15 text-[#e5c76b] border border-[#c9a227]/40 shadow-sm"
                       : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
                   }`}
@@ -195,97 +230,41 @@ export function Navbar() {
                   <span>Collections</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      collectionsOpen ? "rotate-180 text-[#c9a227]" : "text-[#777777]"
+                      collectionsOpen ? "rotate-180 text-black font-bold" : "text-[#777777]"
                     }`}
                   />
                 </button>
-
-                {/* Dropdown Card */}
-                {collectionsOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2.5 w-72 bg-[#0e0e0e]/95 backdrop-blur-2xl border border-white/15 rounded-2xl p-2 shadow-2xl shadow-black/80 animate-in fade-in zoom-in-95 duration-200 z-50">
-                    <div className="p-2 border-b border-white/10 flex items-center justify-between text-[10px] uppercase tracking-widest text-[#888888] font-bold">
-                      <span className="flex items-center gap-1.5">
-                        <Layers className="w-3 h-3 text-[#c9a227]" /> Curation
-                      </span>
-                      <span className="text-[#c9a227]">Banani Atelier</span>
-                    </div>
-
-                    <div className="py-1.5 space-y-1">
-                      {COLLECTION_ITEMS.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setCollectionsOpen(false)}
-                          className="flex items-center justify-between p-2.5 rounded-xl hover:bg-white/10 transition-all group"
-                        >
-                          <div className="space-y-0.5">
-                            <div className="flex items-center gap-1.5">
-                              {item.icon}
-                              <p className="text-xs font-semibold text-[#f8f8f6] group-hover:text-[#c9a227] transition-colors">
-                                {item.name}
-                              </p>
-                            </div>
-                            <p className="text-[10px] text-[#777777] group-hover:text-[#aaaaaa] line-clamp-1">
-                              {item.tagline}
-                            </p>
-                          </div>
-
-                          {item.badge && (
-                            <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#c9a227]/15 text-[#e5c76b] border border-[#c9a227]/30">
-                              {item.badge}
-                            </span>
-                          )}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
 
               {/* 3. Hoodies Link */}
               <Link
                 href="/categories/hoodies"
-                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
-                  isHoodiesActive
-                    ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
-                    : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
-                }`}
+                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isHoodiesActive
+                  ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
+                  : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
+                  }`}
               >
                 Hoodies
               </Link>
 
-              {/* 4. T-Shirts Link */}
+              {/* 4. Baggy Pants Link */}
               <Link
-                href="/categories/t-shirts"
-                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
-                  isTeesActive
-                    ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
-                    : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
-                }`}
+                href="/categories/baggy-pants"
+                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isBaggyActive
+                  ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
+                  : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
+                  }`}
               >
-                T-Shirts
-              </Link>
-
-              {/* 4. Shirts Link */}
-              <Link
-                href="/categories/shirts"
-                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
-                  isShirtsActive
-                    ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
-                    : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
-                }`}
-              >
-                Shirts
+                Baggy Pants
               </Link>
 
               {/* 5. About / Atelier Link */}
               <Link
                 href="/about"
-                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
-                  isAboutActive
-                    ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
-                    : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
-                }`}
+                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isAboutActive
+                  ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
+                  : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
+                  }`}
               >
                 Atelier
               </Link>
@@ -293,11 +272,10 @@ export function Navbar() {
               {/* 6. Contact Link */}
               <Link
                 href="/contact"
-                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${
-                  isContactActive
-                    ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
-                    : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
-                }`}
+                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isContactActive
+                  ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
+                  : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
+                  }`}
               >
                 Contact
               </Link>
@@ -309,7 +287,7 @@ export function Navbar() {
               <button
                 onClick={openSearch}
                 aria-label="Search products"
-                className="p-2 sm:p-2.5 text-[#cccccc] hover:text-[#c9a227] hover:bg-white/10 rounded-full transition-all focus:outline-none flex items-center gap-1.5"
+                className="p-2 sm:p-2.5 text-[#cccccc] hover:text-[#c9a227] hover:bg-white/10 rounded-full transition-all focus:outline-none flex items-center gap-1.5 cursor-pointer"
               >
                 <Search className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                 <span className="hidden xl:inline-block text-[10px] font-mono text-[#777777] border border-white/10 rounded-full px-1.5 py-0.5">
@@ -335,7 +313,7 @@ export function Navbar() {
               <button
                 onClick={toggleCart}
                 aria-label={`Shopping bag with ${cartCount} items`}
-                className="relative p-2 sm:p-2.5 text-[#f8f8f6] hover:text-[#c9a227] hover:bg-white/10 rounded-full transition-all focus:outline-none flex items-center"
+                className="relative p-2 sm:p-2.5 text-[#f8f8f6] hover:text-[#c9a227] hover:bg-white/10 rounded-full transition-all focus:outline-none flex items-center cursor-pointer"
               >
                 <ShoppingBag className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
                 {cartCount > 0 && (
@@ -350,7 +328,7 @@ export function Navbar() {
                 href="/products"
                 className="hidden sm:inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black hover:shadow-[0_0_22px_rgba(201,162,39,0.55)] hover:scale-105 active:scale-95 transition-all shadow-md"
               >
-                <span>Shop Drop</span>
+                <span>Shop Now</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
 
@@ -358,13 +336,136 @@ export function Navbar() {
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 aria-label="Open mobile navigation menu"
-                className="lg:hidden p-2 text-[#cccccc] hover:text-[#c9a227] hover:bg-white/10 rounded-full transition-colors focus:outline-none ml-1"
+                className="lg:hidden p-2 text-[#cccccc] hover:text-[#c9a227] hover:bg-white/10 rounded-full transition-colors focus:outline-none ml-1 cursor-pointer"
               >
                 <Menu className="w-5 h-5" />
               </button>
             </div>
           </div>
         </div>
+
+        {/* Full-Width Desktop Collections Mega-Menu Submenu with Images */}
+        {collectionsOpen && (
+          <div
+            className="hidden lg:block absolute top-full left-3 right-3 sm:left-6 sm:right-6 lg:left-8 lg:right-8 mt-3 bg-[#0d0d0d] border-2 border-[#c9a227]/40 rounded-3xl p-6 sm:p-7 shadow-[0_30px_90px_rgba(0,0,0,0.98),0_0_50px_rgba(201,162,39,0.22)] animate-in fade-in slide-in-from-top-2 duration-200 z-50 overflow-hidden"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* Top Bar inside Mega-Menu */}
+            <div className="flex items-center justify-between pb-4 mb-5 border-b border-white/15">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 rounded-xl bg-[#c9a227]/20 border border-[#c9a227]/50 text-[#e5c76b] shadow-sm">
+                  <Layers className="w-4.5 h-4.5" />
+                </div>
+                <div>
+                  <h3 className="font-serif font-bold text-lg tracking-wide text-white flex items-center gap-2">
+                    <span>ARVYNO Atelier Categories</span>
+                    <span className="text-[10px] uppercase font-mono tracking-widest px-2.5 py-0.5 rounded-full bg-[#c9a227]/15 text-[#e5c76b] border border-[#c9a227]/30 font-semibold">
+                      Curated Drops
+                    </span>
+                  </h3>
+                  <p className="text-xs text-[#a0a0a0] pt-0.5">
+                    100% soft cotton 220+ GSM, 350+ GSM fleece hoodies, artisanal acid wash, and interlock baggy pants.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/products"
+                  onClick={() => setCollectionsOpen(false)}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black font-extrabold text-xs uppercase tracking-wider hover:shadow-[0_0_25px_rgba(201,162,39,0.6)] hover:scale-105 active:scale-95 transition-all shadow-md"
+                >
+                  <span>Shop Full Catalog (13 Items)</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* 3-Column Full Width Grid with Left Info & Right Smallest Image Thumbnail */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {COLLECTION_ITEMS.map((item) => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setCollectionsOpen(false)}
+                    className={`group relative p-4 rounded-2xl border transition-all duration-300 flex items-center justify-between gap-4 ${
+                      isActive
+                        ? "bg-[#1f1b12] border-[#c9a227] ring-1 ring-[#c9a227]/60 shadow-[0_0_25px_rgba(201,162,39,0.25)]"
+                        : "bg-[#161616] hover:bg-[#202020] border-[#2c2c2c] hover:border-[#c9a227]/80 hover:shadow-[0_10px_30px_rgba(0,0,0,0.85),0_0_20px_rgba(201,162,39,0.2)] hover:-translate-y-0.5"
+                    }`}
+                  >
+                    {/* Left Side: Category Name, Tagline, Price & Badges */}
+                    <div className="flex-1 min-w-0 flex flex-col justify-between space-y-2">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="p-1 rounded-md bg-[#c9a227]/15 text-[#e5c76b] border border-[#c9a227]/30 flex-shrink-0">
+                            {item.icon}
+                          </span>
+                          <h4 className="text-sm font-bold text-white group-hover:text-[#f3d37a] transition-colors truncate">
+                            {item.name}
+                          </h4>
+                        </div>
+                        <p className="text-xs text-[#a8a8a8] group-hover:text-[#dddddd] line-clamp-1 leading-relaxed">
+                          {item.tagline}
+                        </p>
+                      </div>
+
+                      <div className="flex items-center flex-wrap gap-2 pt-1">
+                        <span className="text-xs font-mono font-extrabold text-black bg-[#c9a227] group-hover:bg-[#e5c76b] px-2.5 py-0.5 rounded-md shadow-sm transition-colors">
+                          {item.price}
+                        </span>
+                        {item.badge && (
+                          <span className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-white/10 text-[#d4d4d4] border border-white/15">
+                            {item.badge}
+                          </span>
+                        )}
+                        <span className="text-[10px] text-[#888888] font-medium ml-auto hidden sm:inline">
+                          {item.itemCount}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Right Side: Smallest Category Image Thumbnail */}
+                    <div className="relative w-20 h-20 sm:w-22 sm:h-22 rounded-2xl overflow-hidden flex-shrink-0 bg-black border border-[#383838] group-hover:border-[#c9a227] shadow-lg transition-colors">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        sizes="90px"
+                        className="object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-40 group-hover:opacity-10 transition-opacity" />
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Bottom Horizontal Info Bar */}
+            <div className="mt-5 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-[#999999]">
+              <div className="flex items-center gap-4 flex-wrap">
+                <span className="flex items-center gap-1.5 text-[#e0e0e0] font-medium">
+                  <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" /> 100% Quality Checked Product
+                </span>
+                <span className="hidden md:inline text-white/20">•</span>
+                <span className="flex items-center gap-1.5 text-[#e0e0e0] font-medium">
+                  <Flame className="w-3.5 h-3.5 text-[#c9a227]" /> Bangladesh Weather Friendly
+                </span>
+                <span className="hidden md:inline text-white/20">•</span>
+                <span className="text-[#e5c76b] font-semibold">
+                  Concierge Helpline: {BRAND.contact.phone}
+                </span>
+              </div>
+
+              <span className="text-[#c9a227] font-bold tracking-wider uppercase text-[11px] bg-[#c9a227]/10 px-3 py-1 rounded-full border border-[#c9a227]/30">
+                Cash on Delivery Nationwide
+              </span>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Mobile Navigation Drawer */}
@@ -410,80 +511,110 @@ export function Navbar() {
               </div>
 
               {/* Navigation Links */}
-              <nav className="py-6 space-y-1.5">
+              <nav className="py-6 space-y-2">
                 <Link
                   href="/"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
-                    isHomeActive
-                      ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
-                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
-                  }`}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${isHomeActive
+                    ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
+                    : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
+                    }`}
                 >
                   <span>Home</span>
                   <ChevronRight className="w-4 h-4 opacity-70" />
                 </Link>
 
-                <Link
-                  href="/products"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
-                    pathname === "/products"
-                      ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
-                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
-                  }`}
-                >
-                  <span>Shop All</span>
-                  <ChevronRight className="w-4 h-4 opacity-70" />
-                </Link>
+                {/* Vertical Submenu Accordion for Collections */}
+                <div className="space-y-1">
+                  <button
+                    type="button"
+                    onClick={() => setMobileCollectionsOpen((prev) => !prev)}
+                    className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${
+                      isCollectionsActive && !isHomeActive
+                        ? "bg-white/10 text-[#e5c76b] border border-[#c9a227]/30"
+                        : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <Layers className="w-3.5 h-3.5 text-[#c9a227]" />
+                      <span>Collections & Categories</span>
+                    </span>
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 transition-transform duration-200 text-[#888888] ${
+                        mobileCollectionsOpen ? "rotate-180 text-[#c9a227]" : ""
+                      }`}
+                    />
+                  </button>
 
-                <Link
-                  href="/categories/hoodies"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
-                    isHoodiesActive
-                      ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
-                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
-                  }`}
-                >
-                  <span>Hoodies (350+ GSM)</span>
-                  <ChevronRight className="w-4 h-4 opacity-70" />
-                </Link>
+                  {/* Mobile Vertical List with Left Info & Right Smallest Image Thumbnail */}
+                  {mobileCollectionsOpen && (
+                    <div className="pt-2 pb-1 space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
+                      <div className="flex flex-col space-y-2">
+                        {COLLECTION_ITEMS.map((item) => {
+                          const isActive = pathname === item.href;
+                          return (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className={`p-2.5 rounded-xl border transition-all flex items-center justify-between gap-3 bg-[#141414] ${
+                                isActive
+                                  ? "bg-[#c9a227]/15 border-[#c9a227]"
+                                  : "border-white/10 hover:border-white/25"
+                              }`}
+                            >
+                              <div className="flex-1 min-w-0 space-y-1">
+                                <p className="text-xs font-bold text-[#f8f8f6] group-hover:text-[#e5c76b] truncate">
+                                  {item.name}
+                                </p>
+                                <p className="text-[10px] text-[#777777] truncate">
+                                  {item.tagline}
+                                </p>
+                                <div className="flex items-center gap-1.5 pt-0.5">
+                                  <span className="text-[10px] font-mono font-bold text-[#e5c76b]">
+                                    {item.price}
+                                  </span>
+                                  {item.badge && (
+                                    <span className="text-[7px] font-bold uppercase px-1.5 py-0.2 rounded-full bg-[#c9a227]/15 text-[#e5c76b]">
+                                      {item.badge}
+                                    </span>
+                                  )}
+                                </div>
+                              </div>
 
-                <Link
-                  href="/categories/t-shirts"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
-                    isTeesActive
-                      ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
-                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
-                  }`}
-                >
-                  <span>Acid Wash T-Shirts</span>
-                  <ChevronRight className="w-4 h-4 opacity-70" />
-                </Link>
+                              <div className="relative w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-black border border-white/10">
+                                <Image
+                                  src={item.image}
+                                  alt={item.name}
+                                  fill
+                                  sizes="56px"
+                                  className="object-cover"
+                                />
+                              </div>
+                            </Link>
+                          );
+                        })}
+                      </div>
 
-                <Link
-                  href="/categories/shirts"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
-                    isShirtsActive
-                      ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
-                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
-                  }`}
-                >
-                  <span>Striped Shirts</span>
-                  <ChevronRight className="w-4 h-4 opacity-70" />
-                </Link>
+                      <Link
+                        href="/products"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-[#c9a227] hover:text-black text-[#e5c76b] text-xs font-bold uppercase tracking-wider transition-all"
+                      >
+                        <span>View All 13 Items</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  )}
+                </div>
 
                 <Link
                   href="/about"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
-                    isAboutActive
-                      ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
-                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
-                  }`}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${isAboutActive
+                    ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
+                    : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
+                    }`}
                 >
                   <span>About Atelier</span>
                   <ChevronRight className="w-4 h-4 opacity-70" />
@@ -492,11 +623,10 @@ export function Navbar() {
                 <Link
                   href="/contact"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-full text-xs font-semibold tracking-wider uppercase transition-all ${
-                    isContactActive
-                      ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
-                      : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
-                  }`}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all ${isContactActive
+                    ? "bg-gradient-to-r from-[#c9a227] to-[#e5c76b] text-black font-bold shadow-md"
+                    : "text-[#cccccc] hover:bg-[#1a1a1a] hover:text-[#ffffff]"
+                    }`}
                 >
                   <span>Contact Concierge</span>
                   <ChevronRight className="w-4 h-4 opacity-70" />

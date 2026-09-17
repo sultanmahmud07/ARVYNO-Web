@@ -123,7 +123,7 @@ export function CartDrawer() {
                     Your bag is waiting for something special.
                   </p>
                   <p className="text-xs text-[#888888] max-w-xs">
-                    Explore our collection of heavy cotton tees and tailored shirts.
+                    Explore our collection of heavyweight drop shoulder tees, hoodies, and acid wash streetwear.
                   </p>
                 </div>
                 <Link

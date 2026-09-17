@@ -88,6 +88,12 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
     product.compareAtPrice
   );
 
+  const isBaggyProduct =
+    product.categorySlug === "baggy-pants" ||
+    product.category.toLowerCase().includes("pant") ||
+    product.category.toLowerCase().includes("baggy") ||
+    product.category.toLowerCase().includes("buggy");
+
   // Handle Mouse Move for Hover Zoom Lens
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!imageContainerRef.current) return;
@@ -673,10 +679,12 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                     Fit & Proportions
                   </p>
                   <h3 className="font-serif text-xl sm:text-3xl font-bold text-[#f8f8f6]">
-                    Drop Shoulder T-Shirt Size Chart
+                    {isBaggyProduct ? "ARVYNO Premium Baggy Pant Size Chart" : "Drop Shoulder T-Shirt & Tops Size Chart"}
                   </h3>
                   <p className="text-xs sm:text-sm text-[#a0a0a0] font-light">
-                    100% soft cotton 220+ GSM, Fashionable Unisex Wear. All dimensions are in inches.
+                    {isBaggyProduct
+                      ? "Premium Interlock Fabric, Metal Tips Drawstring, Export Quality Stitching. All dimensions are in inches."
+                      : "100% soft cotton 220+ GSM, Fashionable Unisex Wear. All dimensions are in inches."}
                   </p>
                 </div>
 
@@ -684,61 +692,113 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="p-3 rounded-xl bg-[#141414] border border-[#222222] text-left">
                     <span className="text-[10px] uppercase font-bold text-[#c9a227] tracking-wider block">Fitting</span>
-                    <span className="text-xs font-semibold text-[#f8f8f6]">Oversized Silhouette</span>
+                    <span className="text-xs font-semibold text-[#f8f8f6]">
+                      {isBaggyProduct ? "Comfortable & Trendy Baggy Fit" : "Oversized Silhouette"}
+                    </span>
                   </div>
                   <div className="p-3 rounded-xl bg-[#141414] border border-[#222222] text-left">
                     <span className="text-[10px] uppercase font-bold text-[#c9a227] tracking-wider block">Fabrics</span>
-                    <span className="text-xs font-semibold text-[#f8f8f6]">100% Soft Cotton 220+ GSM</span>
+                    <span className="text-xs font-semibold text-[#f8f8f6]">
+                      {isBaggyProduct ? "Premium Interlock Fabric" : "100% Soft Cotton 220+ GSM"}
+                    </span>
                   </div>
                   <div className="p-3 rounded-xl bg-[#141414] border border-[#222222] text-left">
-                    <span className="text-[10px] uppercase font-bold text-[#c9a227] tracking-wider block">Wear</span>
-                    <span className="text-xs font-semibold text-[#f8f8f6]">Fashionable Unisex Wear</span>
+                    <span className="text-[10px] uppercase font-bold text-[#c9a227] tracking-wider block">
+                      {isBaggyProduct ? "Quality" : "Wear"}
+                    </span>
+                    <span className="text-xs font-semibold text-[#f8f8f6]">
+                      {isBaggyProduct ? "100% QC Checked & Export Stitching" : "Fashionable Unisex Wear"}
+                    </span>
                   </div>
                 </div>
 
                 {/* Size Table */}
                 <div className="overflow-x-auto -mx-2 sm:mx-0 border border-[#222222] rounded-xl">
-                  <table className="w-full text-[11px] sm:text-xs text-left">
-                    <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider font-semibold">
-                      <tr>
-                        <th className="p-2.5 sm:p-3.5">Size</th>
-                        <th className="p-2.5 sm:p-3.5">Length (Inch)</th>
-                        <th className="p-2.5 sm:p-3.5">Chest (Inch)</th>
-                        <th className="p-2.5 sm:p-3.5">Sleeve (Inch)</th>
-                        <th className="p-2.5 sm:p-3.5">Fit Recommendation</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[#222222] text-[#cccccc]">
-                      <tr className="hover:bg-[#161616] transition-colors">
-                        <td className="p-2.5 sm:p-3.5 font-bold text-white">M (Medium)</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">27</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">42</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">8&quot;04</td>
-                        <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Standard / Relaxed Fit</td>
-                      </tr>
-                      <tr className="hover:bg-[#161616] transition-colors">
-                        <td className="p-2.5 sm:p-3.5 font-bold text-white">L (Large)</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">28</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">44</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;00</td>
-                        <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Relaxed Streetwear</td>
-                      </tr>
-                      <tr className="hover:bg-[#161616] transition-colors">
-                        <td className="p-2.5 sm:p-3.5 font-bold text-white">XL (Extra Large)</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">26</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">46</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;04</td>
-                        <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Drop Shoulder Silhouette</td>
-                      </tr>
-                      <tr className="hover:bg-[#161616] transition-colors">
-                        <td className="p-2.5 sm:p-3.5 font-bold text-white">2XL / XXL (Double XL)</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">30</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">48</td>
-                        <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;04</td>
-                        <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Generous Oversized Fit</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  {isBaggyProduct ? (
+                    <table className="w-full text-[11px] sm:text-xs text-left">
+                      <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider font-semibold">
+                        <tr>
+                          <th className="p-2.5 sm:p-3.5">Size</th>
+                          <th className="p-2.5 sm:p-3.5">Length (Inch)</th>
+                          <th className="p-2.5 sm:p-3.5">Waist Range (Inch)</th>
+                          <th className="p-2.5 sm:p-3.5">Thigh / Hip (Inch)</th>
+                          <th className="p-2.5 sm:p-3.5">Fit Recommendation</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#222222] text-[#cccccc]">
+                        <tr className="hover:bg-[#161616] transition-colors">
+                          <td className="p-2.5 sm:p-3.5 font-bold text-white">M (Medium)</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">38</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">28 – 30</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">26&quot;</td>
+                          <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Comfortable Relaxed Fit</td>
+                        </tr>
+                        <tr className="hover:bg-[#161616] transition-colors">
+                          <td className="p-2.5 sm:p-3.5 font-bold text-white">L (Large)</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">39</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">31 – 32</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">27&quot;</td>
+                          <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Trendy Streetwear Fit</td>
+                        </tr>
+                        <tr className="hover:bg-[#161616] transition-colors">
+                          <td className="p-2.5 sm:p-3.5 font-bold text-white">XL (Extra Large)</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">40</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">33 – 34</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">28&quot;</td>
+                          <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Relaxed Wide-Leg Fit</td>
+                        </tr>
+                        <tr className="hover:bg-[#161616] transition-colors">
+                          <td className="p-2.5 sm:p-3.5 font-bold text-white">2XL / XXL (Double XL)</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">41</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">35 – 36</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">29&quot;</td>
+                          <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Generous Baggy Silhouette</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  ) : (
+                    <table className="w-full text-[11px] sm:text-xs text-left">
+                      <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider font-semibold">
+                        <tr>
+                          <th className="p-2.5 sm:p-3.5">Size</th>
+                          <th className="p-2.5 sm:p-3.5">Length (Inch)</th>
+                          <th className="p-2.5 sm:p-3.5">Chest (Inch)</th>
+                          <th className="p-2.5 sm:p-3.5">Sleeve (Inch)</th>
+                          <th className="p-2.5 sm:p-3.5">Fit Recommendation</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#222222] text-[#cccccc]">
+                        <tr className="hover:bg-[#161616] transition-colors">
+                          <td className="p-2.5 sm:p-3.5 font-bold text-white">M (Medium)</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">27</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">42</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">8&quot;04</td>
+                          <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Standard / Relaxed Fit</td>
+                        </tr>
+                        <tr className="hover:bg-[#161616] transition-colors">
+                          <td className="p-2.5 sm:p-3.5 font-bold text-white">L (Large)</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">28</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">44</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;00</td>
+                          <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Relaxed Streetwear</td>
+                        </tr>
+                        <tr className="hover:bg-[#161616] transition-colors">
+                          <td className="p-2.5 sm:p-3.5 font-bold text-white">XL (Extra Large)</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">26</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">46</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;04</td>
+                          <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Drop Shoulder Silhouette</td>
+                        </tr>
+                        <tr className="hover:bg-[#161616] transition-colors">
+                          <td className="p-2.5 sm:p-3.5 font-bold text-white">2XL / XXL (Double XL)</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">30</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">48</td>
+                          <td className="p-2.5 sm:p-3.5 font-mono text-[#f8f8f6]">9&quot;04</td>
+                          <td className="p-2.5 sm:p-3.5 text-[#e5c76b]">Generous Oversized Fit</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  )}
                 </div>
 
                 {/* HOW TO MEASURE Guide */}
@@ -746,41 +806,75 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
                   <div className="flex items-center gap-2">
                     <Ruler className="w-4 h-4 text-[#c9a227]" />
                     <h4 className="font-serif text-sm sm:text-base font-bold text-[#f8f8f6] uppercase tracking-wider">
-                      How To Measure
+                      How To Measure {isBaggyProduct ? "Pants" : "Tops"}
                     </h4>
                   </div>
                   
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-                    <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">1</span>
-                        <h5 className="text-xs font-bold text-[#f8f8f6]">Length</h5>
+                  {isBaggyProduct ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                      <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">1</span>
+                          <h5 className="text-xs font-bold text-[#f8f8f6]">Outseam Length</h5>
+                        </div>
+                        <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                          Measure straight from the top of the waistband down along the outer side seam to the bottom hem.
+                        </p>
                       </div>
-                      <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
-                        Measure straight from the highest shoulder seam beside the neckband down to the bottom edge hem.
-                      </p>
-                    </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">2</span>
-                        <h5 className="text-xs font-bold text-[#f8f8f6]">Chest</h5>
+                      <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">2</span>
+                          <h5 className="text-xs font-bold text-[#f8f8f6]">Waist & Elastic Range</h5>
+                        </div>
+                        <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                          Measure flat across the elastic waistband relaxed to comfortable stretch circumference.
+                        </p>
                       </div>
-                      <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
-                        Measure straight across chest from armpit to armpit and calculate total circumference around the body.
-                      </p>
-                    </div>
 
-                    <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">3</span>
-                        <h5 className="text-xs font-bold text-[#f8f8f6]">Sleeve</h5>
+                      <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">3</span>
+                          <h5 className="text-xs font-bold text-[#f8f8f6]">Thigh & Hip</h5>
+                        </div>
+                        <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                          Measure across the widest part of the leg below the crotch seam for full relaxed drape.
+                        </p>
                       </div>
-                      <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
-                        Measure from the relaxed drop-shoulder seam straight down along the sleeve to the cuff opening.
-                      </p>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                      <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">1</span>
+                          <h5 className="text-xs font-bold text-[#f8f8f6]">Length</h5>
+                        </div>
+                        <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                          Measure straight from the highest shoulder seam beside the neckband down to the bottom edge hem.
+                        </p>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">2</span>
+                          <h5 className="text-xs font-bold text-[#f8f8f6]">Chest</h5>
+                        </div>
+                        <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                          Measure straight across chest from armpit to armpit and calculate total circumference around the body.
+                        </p>
+                      </div>
+
+                      <div className="p-3.5 rounded-xl bg-[#181818] border border-[#2b2b2b] space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-[#c9a227] text-black font-bold text-[10px] flex items-center justify-center">3</span>
+                          <h5 className="text-xs font-bold text-[#f8f8f6]">Sleeve</h5>
+                        </div>
+                        <p className="text-[11px] text-[#a0a0a0] leading-relaxed">
+                          Measure from the relaxed drop-shoulder seam straight down along the sleeve to the cuff opening.
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -1019,7 +1113,7 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               <div className="flex items-center gap-2">
                 <Ruler className="w-5 h-5 text-[#c9a227]" />
                 <h3 className="font-serif text-lg font-bold text-[#f8f8f6]">
-                  Drop Shoulder T-Shirt Size Chart
+                  {isBaggyProduct ? "Baggy Pant Size Chart" : "Drop Shoulder T-Shirt Size Chart"}
                 </h3>
               </div>
               <button
@@ -1034,56 +1128,101 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
             <div className="grid grid-cols-3 gap-2 text-left">
               <div className="p-2.5 rounded-lg bg-[#141414] border border-[#222222]">
                 <span className="text-[9px] uppercase font-bold text-[#c9a227] tracking-wider block">Fitting</span>
-                <span className="text-[11px] font-semibold text-[#f8f8f6]">Oversized</span>
+                <span className="text-[11px] font-semibold text-[#f8f8f6]">
+                  {isBaggyProduct ? "Trendy Baggy" : "Oversized"}
+                </span>
               </div>
               <div className="p-2.5 rounded-lg bg-[#141414] border border-[#222222]">
                 <span className="text-[9px] uppercase font-bold text-[#c9a227] tracking-wider block">Fabrics</span>
-                <span className="text-[11px] font-semibold text-[#f8f8f6]">100% Cotton (220+ GSM)</span>
+                <span className="text-[11px] font-semibold text-[#f8f8f6]">
+                  {isBaggyProduct ? "Interlock Knit" : "100% Cotton (220+ GSM)"}
+                </span>
               </div>
               <div className="p-2.5 rounded-lg bg-[#141414] border border-[#222222]">
-                <span className="text-[9px] uppercase font-bold text-[#c9a227] tracking-wider block">Wear</span>
-                <span className="text-[11px] font-semibold text-[#f8f8f6]">Unisex</span>
+                <span className="text-[9px] uppercase font-bold text-[#c9a227] tracking-wider block">Quality</span>
+                <span className="text-[11px] font-semibold text-[#f8f8f6]">
+                  {isBaggyProduct ? "Metal Tips" : "Unisex"}
+                </span>
               </div>
             </div>
 
             {/* Table */}
             <div className="overflow-x-auto border border-[#222222] rounded-xl">
-              <table className="w-full text-xs text-left">
-                <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider font-semibold">
-                  <tr>
-                    <th className="p-2.5 sm:p-3">Size</th>
-                    <th className="p-2.5 sm:p-3">Length (Inch)</th>
-                    <th className="p-2.5 sm:p-3">Chest (Inch)</th>
-                    <th className="p-2.5 sm:p-3">Sleeve (Inch)</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#222222] text-[#cccccc]">
-                  <tr className="hover:bg-[#161616]">
-                    <td className="p-2.5 sm:p-3 font-bold text-white">M</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">27</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">42</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">8&quot;04</td>
-                  </tr>
-                  <tr className="hover:bg-[#161616]">
-                    <td className="p-2.5 sm:p-3 font-bold text-white">L</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">28</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">44</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;00</td>
-                  </tr>
-                  <tr className="hover:bg-[#161616]">
-                    <td className="p-2.5 sm:p-3 font-bold text-white">XL</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">26</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">46</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;04</td>
-                  </tr>
-                  <tr className="hover:bg-[#161616]">
-                    <td className="p-2.5 sm:p-3 font-bold text-white">2XL</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">30</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">48</td>
-                    <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;04</td>
-                  </tr>
-                </tbody>
-              </table>
+              {isBaggyProduct ? (
+                <table className="w-full text-xs text-left">
+                  <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider font-semibold">
+                    <tr>
+                      <th className="p-2.5 sm:p-3">Size</th>
+                      <th className="p-2.5 sm:p-3">Length</th>
+                      <th className="p-2.5 sm:p-3">Waist</th>
+                      <th className="p-2.5 sm:p-3">Thigh</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#222222] text-[#cccccc]">
+                    <tr className="hover:bg-[#161616]">
+                      <td className="p-2.5 sm:p-3 font-bold text-white">M</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">38&quot;</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">28 – 30&quot;</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">26&quot;</td>
+                    </tr>
+                    <tr className="hover:bg-[#161616]">
+                      <td className="p-2.5 sm:p-3 font-bold text-white">L</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">39&quot;</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">31 – 32&quot;</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">27&quot;</td>
+                    </tr>
+                    <tr className="hover:bg-[#161616]">
+                      <td className="p-2.5 sm:p-3 font-bold text-white">XL</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">40&quot;</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">33 – 34&quot;</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">28&quot;</td>
+                    </tr>
+                    <tr className="hover:bg-[#161616]">
+                      <td className="p-2.5 sm:p-3 font-bold text-white">2XL</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">41&quot;</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">35 – 36&quot;</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">29&quot;</td>
+                    </tr>
+                  </tbody>
+                </table>
+              ) : (
+                <table className="w-full text-xs text-left">
+                  <thead className="bg-[#181818] text-[#e5c76b] uppercase tracking-wider font-semibold">
+                    <tr>
+                      <th className="p-2.5 sm:p-3">Size</th>
+                      <th className="p-2.5 sm:p-3">Length (Inch)</th>
+                      <th className="p-2.5 sm:p-3">Chest (Inch)</th>
+                      <th className="p-2.5 sm:p-3">Sleeve (Inch)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#222222] text-[#cccccc]">
+                    <tr className="hover:bg-[#161616]">
+                      <td className="p-2.5 sm:p-3 font-bold text-white">M</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">27</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">42</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">8&quot;04</td>
+                    </tr>
+                    <tr className="hover:bg-[#161616]">
+                      <td className="p-2.5 sm:p-3 font-bold text-white">L</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">28</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">44</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;00</td>
+                    </tr>
+                    <tr className="hover:bg-[#161616]">
+                      <td className="p-2.5 sm:p-3 font-bold text-white">XL</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">26</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">46</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;04</td>
+                    </tr>
+                    <tr className="hover:bg-[#161616]">
+                      <td className="p-2.5 sm:p-3 font-bold text-white">2XL</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">30</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">48</td>
+                      <td className="p-2.5 sm:p-3 font-mono text-[#f8f8f6]">9&quot;04</td>
+                    </tr>
+                  </tbody>
+                </table>
+              )}
             </div>
 
             {/* How to measure */}
@@ -1091,17 +1230,31 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
               <h4 className="text-xs font-bold text-[#e5c76b] uppercase tracking-wider">
                 How To Measure
               </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] text-[#a0a0a0]">
-                <div>
-                  <strong className="text-white block">1. Length:</strong> Collar seam straight down to bottom hem.
+              {isBaggyProduct ? (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] text-[#a0a0a0]">
+                  <div>
+                    <strong className="text-white block">1. Length:</strong> Outseam waistband to bottom hem.
+                  </div>
+                  <div>
+                    <strong className="text-white block">2. Waist:</strong> Relaxed to stretch waistband fit.
+                  </div>
+                  <div>
+                    <strong className="text-white block">3. Thigh:</strong> Widest part of upper leg.
+                  </div>
                 </div>
-                <div>
-                  <strong className="text-white block">2. Chest:</strong> Pit-to-pit chest measurement circumference.
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px] text-[#a0a0a0]">
+                  <div>
+                    <strong className="text-white block">1. Length:</strong> Collar seam straight down to bottom hem.
+                  </div>
+                  <div>
+                    <strong className="text-white block">2. Chest:</strong> Pit-to-pit chest measurement circumference.
+                  </div>
+                  <div>
+                    <strong className="text-white block">3. Sleeve:</strong> Drop shoulder seam down to sleeve cuff.
+                  </div>
                 </div>
-                <div>
-                  <strong className="text-white block">3. Sleeve:</strong> Drop shoulder seam down to sleeve cuff.
-                </div>
-              </div>
+              )}
             </div>
 
             <p className="text-[11px] text-[#888888] leading-relaxed">

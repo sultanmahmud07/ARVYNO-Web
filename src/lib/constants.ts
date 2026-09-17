@@ -16,9 +16,9 @@ export const BRAND = {
     supportHours: "10:00 AM – 10:00 PM (Daily)",
   },
   social: {
-    facebook: "https://facebook.com/arvyno",
-    instagram: "https://instagram.com/arvyno",
-    tiktok: "https://tiktok.com/@arvyno",
+    facebook: "https://facebook.com/arvynobdofficial",
+    instagram: "https://instagram.com/arvyno_bd",
+    tiktok: "https://tiktok.com/@arvynobd",
   },
 };
 
@@ -36,7 +36,7 @@ export const NAV_LINKS = [
   { name: "Drop Shoulder", href: "/categories/drop-shoulder" },
   { name: "Acid Wash", href: "/categories/acid-wash" },
   { name: "Hoodies", href: "/categories/hoodies" },
-  { name: "Shirts", href: "/categories/shirts" },
+  { name: "Baggy Pants", href: "/categories/baggy-pants" },
   { name: "New Arrivals", href: "/categories/new-arrivals" },
   { name: "About", href: "/about" },
 ];
@@ -47,7 +47,7 @@ export const FOOTER_LINKS = {
     { name: "Drop Shoulder T-Shirts", href: "/categories/drop-shoulder" },
     { name: "Acid Wash T-Shirts", href: "/categories/acid-wash" },
     { name: "Heavyweight Hoodies", href: "/categories/hoodies" },
-    { name: "Designer Shirts", href: "/categories/shirts" },
+    { name: "Premium Baggy Pants", href: "/categories/baggy-pants" },
     { name: "New Arrivals", href: "/categories/new-arrivals" },
     { name: "Best Sellers", href: "/categories/best-sellers" },
   ],
