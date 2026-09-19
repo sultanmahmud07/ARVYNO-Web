@@ -517,9 +517,9 @@ export default function CheckoutPage() {
                 <div className="p-3 bg-[#c9a227]/10 border border-[#c9a227]/25 rounded-xl flex items-start gap-2.5 text-[11px] text-[#e5c76b] text-left leading-relaxed">
                   <ShieldCheck className="w-4 h-4 text-[#c9a227] flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-[#f8f8f6]">Phone Confirmation & Color Choice</p>
+                    <p className="font-semibold text-[#f8f8f6]">Phone & WhatsApp Confirmation</p>
                     <p className="text-[#a0a0a0] text-[10px] mt-0.5 leading-relaxed">
-                      After submitting your order from our website, our representative will call you for final order confirmation — then tell us which color you would like to get.
+                      After submitting your order, our representative will call you for final confirmation. You will also get an instant 1-click button to send your order receipt directly to our WhatsApp (01886-957897).
                     </p>
                   </div>
                 </div>

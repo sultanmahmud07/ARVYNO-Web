@@ -75,3 +75,6 @@ export async function getOrderById(orderId: string): Promise<Order | null> {
   }
   return null;
 }
+
+export { formatOrderForWhatsApp, generateWhatsAppOrderUrl } from "@/lib/utils";
+

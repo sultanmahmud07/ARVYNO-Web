@@ -19,7 +19,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="bg-[#0a0a0a] border-t border-[#1f1f1f] text-[#a0a0a0] pt-16 pb-12">
+    <footer className="bg-[#0a0a0a] border-t border-[#1f1f1f] text-[#a0a0a0] pt-16 pb-12 print:hidden">
       {/* Brand Value Props Banner */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 border-b border-[#1c1c1c]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

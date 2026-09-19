@@ -263,3 +263,58 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Print Stylesheet for Single-Page Official Invoice Receipts
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    overflow: visible !important;
+    height: auto !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  header,
+  nav,
+  footer,
+  aside,
+  .no-print,
+  [data-announcement-bar],
+  #google-tag-manager,
+  iframe {
+    display: none !important;
+  }
+
+  .print-invoice-page {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+    color: #111111 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    page-break-after: avoid !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+}

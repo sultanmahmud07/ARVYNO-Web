@@ -156,7 +156,7 @@ export function Navbar() {
       )}
 
       {/* Floating Pill Navbar Wrapper */}
-      <header className="sticky top-2 sm:top-3.5 z-40 w-full px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto transition-all duration-300 relative">
+      <header className="sticky top-2 sm:top-3.5 z-40 w-full px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto transition-all duration-300 relative print:hidden">
         <div
           className={`w-full rounded-full transition-all duration-300 ${isScrolled
             ? "bg-[#090909]/92 dark:bg-[#090909]/95 backdrop-blur-2xl border border-white/15 dark:border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.65)] py-2 sm:py-2.5 px-3.5 sm:px-5"
