@@ -92,6 +92,9 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   verification: {
     google: "8mBV51rwtbjn2mY-bb0LcUoIWvIGtCL-JdDXGXbb09Y",
+    other: {
+      "facebook-domain-verification": "c8jjf4brzjlg78tutknmcerfs2iia8",
+    },
   },
 };
 
