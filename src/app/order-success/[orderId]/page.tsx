@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -8,6 +8,8 @@ import { getOrderById } from "@/lib/services/order-service";
 import { Order } from "@/types/order";
 import { formatPrice, generateWhatsAppOrderUrl } from "@/lib/utils";
 import { DELIVERY_CONFIG, BRAND } from "@/lib/constants";
+import * as fbq from "@/lib/fpixel";
+import { gtmEcommerceEvent } from "@/lib/gtm";
 import {
   CheckCircle2,
   Package,
@@ -54,11 +56,37 @@ export default function OrderSuccessPage() {
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const hasTrackedPurchase = useRef(false);
   useEffect(() => {
     async function loadOrder() {
       if (orderId) {
         const data = await getOrderById(orderId);
         setOrder(data);
+        if (data && !hasTrackedPurchase.current) {
+          hasTrackedPurchase.current = true;
+          fbq.event("Purchase", {
+            value: data.total,
+            currency: "BDT",
+            content_ids: data.items.map((i) => i.productId),
+            content_type: "product",
+            num_items: data.items.reduce((sum, item) => sum + item.quantity, 0),
+            order_id: data.id,
+          });
+          gtmEcommerceEvent("purchase", {
+            transaction_id: data.id,
+            value: data.total,
+            currency: "BDT",
+            shipping: data.deliveryFee,
+            tax: 0,
+            items: data.items.map((item) => ({
+              item_id: item.productId,
+              item_name: item.name,
+              price: item.price,
+              quantity: item.quantity,
+              item_variant: `${item.size} / ${item.color}`,
+            })),
+          });
+        }
       }
       setLoading(false);
     }

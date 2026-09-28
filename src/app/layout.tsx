@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { Plus_Jakarta_Sans, Cinzel } from "next/font/google";
 import "./globals.css";
 import { AnnouncementBar } from "@/components/layout/announcement-bar";
@@ -9,6 +8,8 @@ import { CartDrawer } from "@/components/cart/cart-drawer";
 import { SearchOverlay } from "@/components/search/search-overlay";
 import { Providers } from "@/components/providers";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/common/json-ld";
+import { MetaPixel } from "@/components/analytics/meta-pixel";
+import { GoogleTagManager } from "@/components/analytics/google-tag-manager";
 
 const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -109,29 +110,9 @@ export default function RootLayout({
       className={`${jakartaSans.variable} ${cinzel.variable} scroll-smooth antialiased dark`}
     >
       <body className="min-h-screen bg-[#080808] text-[#F8F8F6] font-sans flex flex-col selection:bg-[#C9A227] selection:text-[#000000]">
-        {/* Google Tag Manager (noscript) */}
-        <noscript>
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-MPSZ4FXT"
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-          />
-        </noscript>
-        {/* End Google Tag Manager (noscript) */}
-
-        {/* Google Tag Manager Script */}
-        <Script
-          id="google-tag-manager"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MPSZ4FXT');`,
-          }}
-        />
+        {/* Analytics & Tracking (Meta Pixel & Google Tag Manager) */}
+        <MetaPixel />
+        <GoogleTagManager />
 
         <Providers>
           <OrganizationJsonLd />

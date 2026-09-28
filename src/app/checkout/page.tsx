@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,8 @@ import { createOrder } from "@/lib/services/order-service";
 import { CustomerInfo, DeliveryZone } from "@/types/order";
 import { DELIVERY_CONFIG } from "@/lib/constants";
 import { formatPrice } from "@/lib/utils";
+import * as fbq from "@/lib/fpixel";
+import { gtmEcommerceEvent } from "@/lib/gtm";
 import { Breadcrumb } from "@/components/common/breadcrumb";
 import {
   ShieldCheck,
@@ -77,6 +79,31 @@ export default function CheckoutPage() {
           : DELIVERY_CONFIG.outsideDhaka;
 
   const currentTotal = summary.subtotal + currentDeliveryFee;
+
+  const hasTrackedCheckout = useRef(false);
+  useEffect(() => {
+    if (isLoaded && items.length > 0 && !hasTrackedCheckout.current) {
+      hasTrackedCheckout.current = true;
+      fbq.event("InitiateCheckout", {
+        content_ids: items.map((i) => i.productId),
+        content_type: "product",
+        num_items: summary.itemCount,
+        value: summary.total,
+        currency: "BDT",
+      });
+      gtmEcommerceEvent("begin_checkout", {
+        currency: "BDT",
+        value: summary.total,
+        items: items.map((item) => ({
+          item_id: item.productId,
+          item_name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          item_variant: `${item.size} / ${item.color}`,
+        })),
+      });
+    }
+  }, [isLoaded, items, summary]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>

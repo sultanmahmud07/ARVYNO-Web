@@ -7,6 +7,8 @@ import { Product, ProductSize } from "@/types/product";
 import { formatPrice, calculateDiscountPercentage } from "@/lib/utils";
 import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
+import * as fbq from "@/lib/fpixel";
+import { gtmEcommerceEvent } from "@/lib/gtm";
 import {
   Heart,
   ShoppingBag,
@@ -27,8 +29,6 @@ import {
   Sparkles,
   Award,
   Layers,
-  Feather,
-  Flame,
   PhoneCall,
 } from "lucide-react";
 import { ScrollReveal } from "@/components/common/scroll-reveal";
@@ -123,6 +123,32 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
+
+  // Track Meta Pixel ViewContent & GA4 view_item events
+  useEffect(() => {
+    if (product) {
+      fbq.event("ViewContent", {
+        content_name: product.name,
+        content_category: product.category,
+        content_ids: [product.id],
+        content_type: "product",
+        value: product.price,
+        currency: "BDT",
+      });
+      gtmEcommerceEvent("view_item", {
+        currency: "BDT",
+        value: product.price,
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.name,
+            item_category: product.category,
+            price: product.price,
+          },
+        ],
+      });
+    }
+  }, [product]);
 
   const handleAddToCart = () => {
     addItem({

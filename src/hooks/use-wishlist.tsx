@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getWishlistFromCookies, saveWishlistToCookies } from "@/lib/wishlist-storage";
+import * as fbq from "@/lib/fpixel";
+import { gtmEcommerceEvent } from "@/lib/gtm";
 
 interface WishlistContextType {
   wishlist: string[]; // array of product IDs
@@ -37,6 +39,14 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
       if (prev.includes(productId)) {
         return prev.filter((id) => id !== productId);
       } else {
+        fbq.event("AddToWishlist", {
+          content_ids: [productId],
+          content_type: "product",
+        });
+        gtmEcommerceEvent("add_to_wishlist", {
+          currency: "BDT",
+          items: [{ item_id: productId, item_name: productId }],
+        });
         return [...prev, productId];
       }
     });

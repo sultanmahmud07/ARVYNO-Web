@@ -4,6 +4,8 @@ import React, { createContext, useContext, useEffect, useState, useMemo } from "
 import { CartItem, CartSummary } from "@/types/cart";
 import { getCartFromCookies, saveCartToCookies } from "@/lib/cart-storage";
 import { DELIVERY_CONFIG } from "@/lib/constants";
+import * as fbq from "@/lib/fpixel";
+import { gtmEcommerceEvent } from "@/lib/gtm";
 
 interface CartContextType {
   items: CartItem[];
@@ -61,6 +63,26 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
     });
     setIsCartOpen(true);
+    fbq.event("AddToCart", {
+      content_ids: [newItem.productId],
+      content_name: newItem.name,
+      content_type: "product",
+      value: newItem.price * newItem.quantity,
+      currency: "BDT",
+    });
+    gtmEcommerceEvent("add_to_cart", {
+      currency: "BDT",
+      value: newItem.price * newItem.quantity,
+      items: [
+        {
+          item_id: newItem.productId,
+          item_name: newItem.name,
+          price: newItem.price,
+          quantity: newItem.quantity,
+          item_variant: `${newItem.size} / ${newItem.color}`,
+        },
+      ],
+    });
   };
 
   const removeItem = (id: string) => {
