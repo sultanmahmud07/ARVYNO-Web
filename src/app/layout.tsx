@@ -10,6 +10,7 @@ import { Providers } from "@/components/providers";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/common/json-ld";
 import { MetaPixel } from "@/components/analytics/meta-pixel";
 import { GoogleTagManager } from "@/components/analytics/google-tag-manager";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 
 const jakartaSans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -110,9 +111,10 @@ export default function RootLayout({
       className={`${jakartaSans.variable} ${cinzel.variable} scroll-smooth antialiased dark`}
     >
       <body className="min-h-screen bg-[#080808] text-[#F8F8F6] font-sans flex flex-col selection:bg-[#C9A227] selection:text-[#000000]">
-        {/* Analytics & Tracking (Meta Pixel & Google Tag Manager) */}
+        {/* Analytics & Tracking (Meta Pixel, Google Tag Manager & Google Analytics) */}
         <MetaPixel />
         <GoogleTagManager />
+        <GoogleAnalytics />
 
         <Providers>
           <OrganizationJsonLd />
