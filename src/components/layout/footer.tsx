@@ -86,25 +86,29 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="flex items-center space-x-3">
-              <div className="relative w-12 h-12 rounded-full border border-[#c9a227]/40 overflow-hidden bg-black flex-shrink-0">
+            <Link
+              href="/"
+              className="inline-flex items-center space-x-3 group focus:outline-none"
+              aria-label="ARVYNO Home"
+            >
+              <div className="relative w-12 h-12 rounded-full border border-[#c9a227]/40 group-hover:border-[#c9a227] overflow-hidden bg-black flex-shrink-0 transition-all duration-300 shadow-lg group-hover:shadow-[0_0_15px_rgba(201,162,39,0.35)]">
                 <Image
                   src="/images/logo/arvyno-logo.png"
                   alt="ARVYNO"
                   fill
                   sizes="48px"
-                  className="object-cover"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div>
-                <span className="font-serif text-2xl font-bold tracking-[0.25em] text-[#f8f8f6] block">
+                <span className="font-serif text-2xl font-bold tracking-[0.25em] text-[#f8f8f6] group-hover:text-[#c9a227] transition-colors block">
                   ARVYNO
                 </span>
                 <span className="text-[10px] tracking-[0.35em] text-[#c9a227] font-medium uppercase block">
-                  WEAR YOUR IDENTITY
+                  Wear Your Identity
                 </span>
               </div>
-            </div>
+            </Link>
 
             <p className="text-sm text-[#888888] leading-relaxed max-w-sm">
               {BRAND.description}

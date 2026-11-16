@@ -125,7 +125,7 @@ export function CuratedTabSlider({
       <div className="absolute top-1/2 right-10 -translate-y-1/2 w-96 h-96 bg-[#c9a227]/5 rounded-full blur-[140px] pointer-events-none animate-float-slow" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Top Header & Tab Pills */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
@@ -143,40 +143,40 @@ export function CuratedTabSlider({
           </div>
 
           {/* Luxury Tab Navigation Capsule */}
-          <div className="inline-flex p-1 rounded-xl bg-[#121212] border border-[#242424] self-start md:self-auto shadow-inner">
+          <div className="w-full sm:w-auto inline-flex items-center p-1 rounded-xl bg-[#121212] border border-[#242424] self-stretch sm:self-start md:self-auto shadow-inner overflow-x-auto no-scrollbar">
             <button
+              type="button"
               onClick={() => handleTabChange("trending")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === "trending"
-                  ? "bg-[#c9a227] text-black shadow-lg shadow-[#c9a227]/20 scale-102"
-                  : "text-[#888888] hover:text-[#f8f8f6]"
-              }`}
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg text-[11px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap transition-all cursor-pointer touch-manipulation select-none active:scale-95 ${activeTab === "trending"
+                ? "bg-[#c9a227] text-black shadow-md sm:shadow-lg shadow-[#c9a227]/20"
+                : "text-[#888888] hover:text-[#f8f8f6]"
+                }`}
             >
-              <Flame className="w-3.5 h-3.5" />
+              <Flame className="w-3.5 h-3.5 shrink-0" />
               <span>Trending</span>
             </button>
 
             <button
+              type="button"
               onClick={() => handleTabChange("new")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === "new"
-                  ? "bg-[#c9a227] text-black shadow-lg shadow-[#c9a227]/20 scale-102"
-                  : "text-[#888888] hover:text-[#f8f8f6]"
-              }`}
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg text-[11px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap transition-all cursor-pointer touch-manipulation select-none active:scale-95 ${activeTab === "new"
+                ? "bg-[#c9a227] text-black shadow-md sm:shadow-lg shadow-[#c9a227]/20"
+                : "text-[#888888] hover:text-[#f8f8f6]"
+                }`}
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5 shrink-0" />
               <span>New Arrivals</span>
             </button>
 
             <button
+              type="button"
               onClick={() => handleTabChange("bestsellers")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                activeTab === "bestsellers"
-                  ? "bg-[#c9a227] text-black shadow-lg shadow-[#c9a227]/20 scale-102"
-                  : "text-[#888888] hover:text-[#f8f8f6]"
-              }`}
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 rounded-lg text-[11px] sm:text-xs font-bold uppercase tracking-tight sm:tracking-wider whitespace-nowrap transition-all cursor-pointer touch-manipulation select-none active:scale-95 ${activeTab === "bestsellers"
+                ? "bg-[#c9a227] text-black shadow-md sm:shadow-lg shadow-[#c9a227]/20"
+                : "text-[#888888] hover:text-[#f8f8f6]"
+                }`}
             >
-              <Award className="w-3.5 h-3.5" />
+              <Award className="w-3.5 h-3.5 shrink-0" />
               <span>Best Sellers</span>
             </button>
           </div>
@@ -247,11 +247,10 @@ export function CuratedTabSlider({
                   key={dotIdx}
                   onClick={() => setCurrentIndex(dotIdx)}
                   aria-label={`Go to slide ${dotIdx + 1}`}
-                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${
-                    dotIdx === currentIndex
-                      ? "w-8 bg-gradient-to-r from-[#c9a227] to-[#e5c76b]"
-                      : "w-2 bg-[#2a2a2a] hover:bg-[#444444]"
-                  }`}
+                  className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${dotIdx === currentIndex
+                    ? "w-8 bg-gradient-to-r from-[#c9a227] to-[#e5c76b]"
+                    : "w-2 bg-[#2a2a2a] hover:bg-[#444444]"
+                    }`}
                 />
               ))}
             </div>

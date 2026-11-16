@@ -12,8 +12,8 @@ import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/common/json-ld";
 
 export default async function HomePage() {
   const [trendingProducts, newArrivals, bestSellers] = await Promise.all([
-    getTrendingProducts(8),
-    getNewArrivals(8),
+    getTrendingProducts(10),
+    getNewArrivals(10),
     getBestSellers(8),
   ]);
 

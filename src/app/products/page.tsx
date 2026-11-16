@@ -33,7 +33,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
   const filters: ProductFilterState = {
     category: resolvedParams.category,
-    sort: resolvedParams.sort || "featured",
+    sort: resolvedParams.sort || "newest",
     size: resolvedParams.size,
     color: resolvedParams.color,
     minPrice: resolvedParams.minPrice ? Number(resolvedParams.minPrice) : undefined,

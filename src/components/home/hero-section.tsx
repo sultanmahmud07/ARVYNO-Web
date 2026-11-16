@@ -58,7 +58,7 @@ const HERO_SLIDES: HeroSlide[] = [
       { value: "100%", unit: "Pure", label: "Egyptian Poplin" },
       { value: "COD", unit: "Ready", label: "Nationwide Express" },
     ],
-    image: "/images/banners/banner-1.png",
+    image: "/images/banners/banner-img-1.png",
     imageAlt: "ARVYNO Luxury Collection — Wear Your Identity",
     overlayCard: {
       icon: Award,
@@ -89,7 +89,7 @@ const HERO_SLIDES: HeroSlide[] = [
       { value: "Twin", unit: "Needle", label: "Zero-Sag Collar" },
       { value: "Bio-Wash", unit: "Soft", label: "Pre-Shrunk Texture" },
     ],
-    image: "/images/banners/banner-2.png",
+    image: "/images/banners/banner-img-2.png",
     imageAlt: "ARVYNO Heavyweight T-Shirt Collection",
     overlayCard: {
       icon: Sparkles,

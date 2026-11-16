@@ -101,7 +101,7 @@ export function FeaturedCategories() {
 
                   <div className="pt-2 flex items-center justify-between border-t border-white/15">
                     <span className="text-xs font-medium text-[#cccccc]">
-                      From {catHoodies.startingPrice ? formatPrice(catHoodies.startingPrice) : "৳1,050"} • {catHoodies.itemCount} Silhouettes
+                      From {catHoodies.startingPrice ? formatPrice(catHoodies.startingPrice) : "৳800"} • {catHoodies.itemCount} Silhouettes
                     </span>
                     <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#c9a227] text-black text-xs font-bold uppercase tracking-wider group-hover:bg-[#e5c76b] group-hover:scale-105 transition-all shadow-lg">
                       <span>Explore</span>

@@ -70,7 +70,7 @@ export default async function CategoryDetailPage({
 
   const filters: ProductFilterState = {
     category: slug,
-    sort: resolvedParams.sort || "featured",
+    sort: resolvedParams.sort || "newest",
     size: resolvedParams.size,
     color: resolvedParams.color,
     minPrice: resolvedParams.minPrice ? Number(resolvedParams.minPrice) : undefined,

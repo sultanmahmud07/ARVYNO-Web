@@ -1,9 +1,108 @@
 import { PRODUCTS } from "@/data/products";
 import { Product, ProductFilterState } from "@/types/product";
 
+const productOrderMap = new Map(PRODUCTS.map((p, index) => [p.id, index]));
+
+/**
+ * Compares two products so that the last added product appears first.
+ * Primary: latest createdAt date/time descending.
+ * Secondary tie-breaker: later position in the PRODUCTS source array.
+ */
+export function compareLastAddedFirst(a: Product, b: Product): number {
+  const timeA = new Date(a.createdAt).getTime();
+  const timeB = new Date(b.createdAt).getTime();
+  if (timeB !== timeA) {
+    return timeB - timeA;
+  }
+  return (productOrderMap.get(b.id) ?? 0) - (productOrderMap.get(a.id) ?? 0);
+}
+
+/**
+ * Compares two products by customer popularity and engagement:
+ * 1. Popularity score (reviewCount * rating)
+ * 2. Higher review count
+ * 3. Tie-breaker: last added first
+ */
+export function compareTrendingScore(a: Product, b: Product): number {
+  const scoreA = (a.reviewCount || 0) * (a.rating || 0);
+  const scoreB = (b.reviewCount || 0) * (b.rating || 0);
+  if (scoreB !== scoreA) {
+    return scoreB - scoreA;
+  }
+  if ((b.reviewCount || 0) !== (a.reviewCount || 0)) {
+    return (b.reviewCount || 0) - (a.reviewCount || 0);
+  }
+  return compareLastAddedFirst(a, b);
+}
+
+/**
+ * Prioritizes Hoodies so that most displayed products (~65-70%) are Hoodies,
+ * artfully interleaved with a curated mix of other streetwear garments
+ * (such as Drop Shoulder T-Shirts, Baggy Pants, and Acid Wash T-Shirts).
+ *
+ * For every 2 Hoodies, 1 mixed garment from other categories is inserted:
+ * [Hoodie, Hoodie, Other, Hoodie, Hoodie, Other, ...]
+ */
+export function mixWithHoodiesPriority(
+  candidates: Product[],
+  limit?: number
+): Product[] {
+  const hoodies = candidates.filter((p) => p.categorySlug === "hoodies");
+  const others = candidates.filter((p) => p.categorySlug !== "hoodies");
+
+  if (hoodies.length === 0 || others.length === 0) {
+    return limit !== undefined ? candidates.slice(0, limit) : candidates;
+  }
+
+  // Interleave and diversify other categories: drop-shoulder, baggy-pants, acid-wash
+  const dropShoulder = others.filter((p) => p.categorySlug === "drop-shoulder");
+  const baggyPants = others.filter((p) => p.categorySlug === "baggy-pants");
+  const acidWash = others.filter((p) => p.categorySlug === "acid-wash");
+  const remainingOthers = others.filter(
+    (p) =>
+      p.categorySlug !== "drop-shoulder" &&
+      p.categorySlug !== "baggy-pants" &&
+      p.categorySlug !== "acid-wash"
+  );
+
+  const diversifiedOthers: Product[] = [];
+  let dsIdx = 0;
+  let bgIdx = 0;
+  let awIdx = 0;
+  let remIdx = 0;
+
+  while (
+    dsIdx < dropShoulder.length ||
+    bgIdx < baggyPants.length ||
+    awIdx < acidWash.length ||
+    remIdx < remainingOthers.length
+  ) {
+    if (dsIdx < dropShoulder.length) diversifiedOthers.push(dropShoulder[dsIdx++]);
+    if (bgIdx < baggyPants.length) diversifiedOthers.push(baggyPants[bgIdx++]);
+    if (dsIdx < dropShoulder.length) diversifiedOthers.push(dropShoulder[dsIdx++]);
+    if (awIdx < acidWash.length) diversifiedOthers.push(acidWash[awIdx++]);
+    if (remIdx < remainingOthers.length) diversifiedOthers.push(remainingOthers[remIdx++]);
+  }
+
+  const result: Product[] = [];
+  let hIdx = 0;
+  let oIdx = 0;
+
+  while (hIdx < hoodies.length || oIdx < diversifiedOthers.length) {
+    for (let i = 0; i < 2 && hIdx < hoodies.length; i++) {
+      result.push(hoodies[hIdx++]);
+    }
+    if (oIdx < diversifiedOthers.length) {
+      result.push(diversifiedOthers[oIdx++]);
+    }
+  }
+
+  return limit !== undefined ? result.slice(0, limit) : result;
+}
+
 export async function getProducts(filters?: ProductFilterState): Promise<Product[]> {
-  // Simulates future API/DB delay if needed
-  let results = [...PRODUCTS];
+  // Always initialize with last added products first
+  let results = [...PRODUCTS].sort(compareLastAddedFirst);
 
   if (!filters) return results;
 
@@ -80,32 +179,51 @@ export async function getProducts(filters?: ProductFilterState): Promise<Product
     results = results.filter((p) => p.stock > 0);
   }
 
-  // Sorting
-  if (filters.sort) {
-    switch (filters.sort) {
-      case "newest":
-        results.sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-        break;
-      case "price-asc":
-        results.sort((a, b) => a.price - b.price);
-        break;
-      case "price-desc":
-        results.sort((a, b) => b.price - a.price);
-        break;
-      case "rating":
-        results.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-        break;
-      case "bestselling":
-        results.sort((a, b) => (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0));
-        break;
-      case "featured":
-      default:
-        results.sort((a, b) => (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0));
-        break;
-    }
+  // Sorting (defaults to last added / newest first)
+  const sort = filters.sort || "newest";
+  switch (sort) {
+    case "price-asc":
+      results.sort((a, b) => a.price - b.price || compareLastAddedFirst(a, b));
+      break;
+    case "price-desc":
+      results.sort((a, b) => b.price - a.price || compareLastAddedFirst(a, b));
+      break;
+    case "rating":
+      results.sort(
+        (a, b) => (b.rating || 0) - (a.rating || 0) || compareLastAddedFirst(a, b)
+      );
+      break;
+    case "bestselling":
+      results.sort(
+        (a, b) =>
+          (b.isBestSeller ? 1 : 0) - (a.isBestSeller ? 1 : 0) ||
+          compareLastAddedFirst(a, b)
+      );
+      break;
+    case "featured":
+      results.sort(
+        (a, b) =>
+          (b.isFeatured ? 1 : 0) - (a.isFeatured ? 1 : 0) ||
+          compareLastAddedFirst(a, b)
+      );
+      break;
+    case "trending":
+      if (!filters.category || filters.category.toLowerCase() !== "trending") {
+        results = results.filter((p) => p.isTrending);
+      }
+      results.sort(compareTrendingScore);
+      break;
+    case "newest":
+    default:
+      if (
+        filters.category &&
+        filters.category.toLowerCase() === "new-arrivals"
+      ) {
+        results = mixWithHoodiesPriority(results);
+      } else {
+        results.sort(compareLastAddedFirst);
+      }
+      break;
   }
 
   return results;
@@ -117,19 +235,31 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
 }
 
 export async function getFeaturedProducts(limit = 4): Promise<Product[]> {
-  return PRODUCTS.filter((p) => p.isFeatured).slice(0, limit);
+  return [...PRODUCTS]
+    .filter((p) => p.isFeatured)
+    .sort(compareLastAddedFirst)
+    .slice(0, limit);
 }
 
-export async function getTrendingProducts(limit = 8): Promise<Product[]> {
-  return PRODUCTS.filter((p) => p.isTrending).slice(0, limit);
+export async function getTrendingProducts(limit = 10): Promise<Product[]> {
+  return [...PRODUCTS]
+    .filter((p) => p.isTrending)
+    .sort(compareTrendingScore)
+    .slice(0, limit);
 }
 
-export async function getNewArrivals(limit = 8): Promise<Product[]> {
-  return PRODUCTS.filter((p) => p.isNew).slice(0, limit);
+export async function getNewArrivals(limit = 10): Promise<Product[]> {
+  const candidates = [...PRODUCTS]
+    .filter((p) => p.isNew)
+    .sort(compareLastAddedFirst);
+  return mixWithHoodiesPriority(candidates, limit);
 }
 
 export async function getBestSellers(limit = 8): Promise<Product[]> {
-  return PRODUCTS.filter((p) => p.isBestSeller).slice(0, limit);
+  return [...PRODUCTS]
+    .filter((p) => p.isBestSeller)
+    .sort(compareLastAddedFirst)
+    .slice(0, limit);
 }
 
 export async function getRelatedProducts(
@@ -137,7 +267,10 @@ export async function getRelatedProducts(
   categorySlug: string,
   limit = 4
 ): Promise<Product[]> {
-  return PRODUCTS.filter(
-    (p) => p.id !== currentProductId && p.categorySlug === categorySlug
-  ).slice(0, limit);
+  return [...PRODUCTS]
+    .filter(
+      (p) => p.id !== currentProductId && p.categorySlug === categorySlug
+    )
+    .sort(compareLastAddedFirst)
+    .slice(0, limit);
 }

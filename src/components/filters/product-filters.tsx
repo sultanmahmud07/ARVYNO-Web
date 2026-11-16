@@ -21,8 +21,9 @@ const COLORS = [
 ];
 
 const SORT_OPTIONS: { label: string; value: SortOption }[] = [
-  { label: "Featured Atelier", value: "featured" },
   { label: "Newest Drops", value: "newest" },
+  { label: "Trending Pieces", value: "trending" },
+  { label: "Featured Atelier", value: "featured" },
   { label: "Price: Low to High", value: "price-asc" },
   { label: "Price: High to Low", value: "price-desc" },
   { label: "Customer Rating", value: "rating" },
@@ -49,7 +50,7 @@ export function ProductFilters({
   // Current filter state from URL
   const queryCategory = searchParams.get("category") || "";
   const effectiveCategory = activeCategorySlug || queryCategory;
-  const currentSort = (searchParams.get("sort") as SortOption) || "featured";
+  const currentSort = (searchParams.get("sort") as SortOption) || "newest";
   const currentSize = (searchParams.get("size") as ProductSize) || "";
   const currentColor = searchParams.get("color") || "";
   const currentMinPrice = searchParams.get("minPrice") || "";

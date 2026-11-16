@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { BRAND } from "@/lib/constants";
+import { PRODUCTS } from "@/data/products";
 import { useCart } from "@/hooks/use-cart";
 import { useWishlist } from "@/hooks/use-wishlist";
 import { useSearch } from "@/hooks/use-search";
@@ -42,7 +43,7 @@ const COLLECTION_ITEMS: DropdownCategory[] = [
     tagline: "100% soft cotton 220+ GSM oversized fit",
     badge: "New Drop",
     price: "৳599",
-    itemCount: "4 Designs",
+    itemCount: "15 Designs",
     icon: <Sparkles className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
   {
@@ -51,8 +52,8 @@ const COLLECTION_ITEMS: DropdownCategory[] = [
     image: "/images/products/hoodies/cream-hoodie.png",
     tagline: "350+ GSM fleece & drop-shoulder fits",
     badge: "Winter Capsule",
-    price: "৳1,050",
-    itemCount: "6 Designs",
+    price: "From ৳800",
+    itemCount: "19 Designs",
     icon: <Flame className="w-3.5 h-3.5 text-[#c9a227]" />,
   },
   {
@@ -131,18 +132,43 @@ export function Navbar() {
   const cartCount = isCartLoaded ? summary.itemCount : 0;
   const wishlistCount = isWishlistLoaded ? wishlist.length : 0;
 
+  // Match active category if user is viewing a product detail page
+  const productSlug = pathname.startsWith("/products/")
+    ? pathname.replace("/products/", "").split("/")[0]
+    : null;
+  const currentProduct = productSlug
+    ? PRODUCTS.find((p) => p.slug === productSlug)
+    : null;
+  const currentProductCat = currentProduct?.categorySlug;
+
   const isHomeActive = pathname === "/";
-  const isCollectionsActive =
-    pathname.startsWith("/products") || pathname.startsWith("/categories");
-  const isDropShoulderActive = pathname === "/categories/drop-shoulder";
-  const isAcidWashActive = pathname === "/categories/acid-wash";
-  const isHoodiesActive = pathname === "/categories/hoodies";
+  const isTShirtActive =
+    pathname === "/categories/drop-shoulder" ||
+    pathname === "/categories/acid-wash" ||
+    pathname === "/categories/t-shirts" ||
+    currentProductCat === "drop-shoulder" ||
+    currentProductCat === "acid-wash";
+  const isHoodiesActive =
+    pathname === "/categories/hoodies" ||
+    pathname === "/categories/hoodie" ||
+    currentProductCat === "hoodies";
   const isBaggyActive =
     pathname === "/categories/baggy-pants" ||
     pathname === "/categories/buggy-pants" ||
-    pathname === "/categories/baggy";
+    pathname === "/categories/baggy" ||
+    currentProductCat === "baggy-pants";
   const isAboutActive = pathname === "/about";
   const isContactActive = pathname === "/contact";
+
+  // Mutually exclusive: Collections tab is only active when none of the direct category tabs or routes match
+  const isCollectionsActive =
+    !isHomeActive &&
+    !isTShirtActive &&
+    !isHoodiesActive &&
+    !isBaggyActive &&
+    !isAboutActive &&
+    !isContactActive &&
+    (pathname.startsWith("/products") || pathname.startsWith("/categories"));
 
   return (
     <>
@@ -185,8 +211,8 @@ export function Navbar() {
                   <span className="font-serif text-base sm:text-lg font-bold tracking-[0.2em] text-[#f8f8f6] group-hover:text-[#c9a227] transition-colors leading-none">
                     ARVYNO
                   </span>
-                  <span className="text-[8px] sm:text-[9px] tracking-[0.25em] text-[#c9a227] font-semibold uppercase mt-0.5">
-                    ATELIER
+                  <span className="text-[7.5px] sm:text-[7.5px] tracking-[0.2em] sm:tracking-[0.24em] text-[#c9a227] font-semibold uppercase mt-0.5 whitespace-nowrap">
+                    Wear Your Identity
                   </span>
                 </div>
               </Link>
@@ -219,8 +245,8 @@ export function Navbar() {
                   onClick={() => setCollectionsOpen((prev) => !prev)}
                   className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 cursor-pointer ${collectionsOpen
                     ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_22px_rgba(201,162,39,0.55)] font-bold scale-[1.02]"
-                    : isCollectionsActive && !isHomeActive
-                      ? "bg-white/15 text-[#e5c76b] border border-[#c9a227]/40 shadow-sm"
+                    : isCollectionsActive
+                      ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
                       : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
                     }`}
                   aria-expanded={collectionsOpen}
@@ -228,22 +254,27 @@ export function Navbar() {
                 >
                   <span>Collections</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-200 ${collectionsOpen ? "rotate-180 text-black font-bold" : "text-[#777777]"
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${collectionsOpen
+                      ? "rotate-180 text-black font-bold"
+                      : isCollectionsActive
+                        ? "text-black"
+                        : "text-[#777777]"
                       }`}
                   />
                 </button>
               </div>
 
-              {/* 3. Hoodies Link */}
+              {/* 3. T-Shirt Link */}
               <Link
                 href="/categories/drop-shoulder"
-                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isHoodiesActive
+                className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isTShirtActive
                   ? "bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black shadow-[0_0_20px_rgba(201,162,39,0.45)]"
                   : "text-[#b0b0b0] hover:text-white hover:bg-white/10"
                   }`}
               >
                 T-Shirt
               </Link>
+              {/* 4. Hoodies Link */}
               <Link
                 href="/categories/hoodies"
                 className={`px-3.5 py-1.5 rounded-full text-xs uppercase tracking-wider font-semibold transition-all duration-200 ${isHoodiesActive
@@ -383,7 +414,7 @@ export function Navbar() {
                   onClick={() => setCollectionsOpen(false)}
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#c9a227] via-[#e5c76b] to-[#c9a227] text-black font-extrabold text-xs uppercase tracking-wider hover:shadow-[0_0_25px_rgba(201,162,39,0.6)] hover:scale-105 active:scale-95 transition-all shadow-md"
                 >
-                  <span>Shop Full Catalog (13 Items)</span>
+                  <span>Shop Full Catalog ({PRODUCTS.length} Items)</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -392,7 +423,9 @@ export function Navbar() {
             {/* 3-Column Full Width Grid with Left Info & Right Smallest Image Thumbnail */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {COLLECTION_ITEMS.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive =
+                  pathname === item.href ||
+                  (Boolean(currentProductCat) && item.href === `/categories/${currentProductCat}`);
                 return (
                   <Link
                     key={item.href}
@@ -489,24 +522,29 @@ export function Navbar() {
             <div>
               {/* Header inside drawer */}
               <div className="flex items-center justify-between pb-6 border-b border-[#222222]">
-                <div className="flex items-center gap-3">
-                  <div className="relative w-9 h-9 rounded-full border border-[#c9a227]/40 overflow-hidden bg-black">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="group flex items-center gap-3 focus:outline-none"
+                  aria-label="ARVYNO Home"
+                >
+                  <div className="relative w-9 h-9 rounded-full border border-[#c9a227]/40 group-hover:border-[#c9a227] overflow-hidden bg-black transition-colors">
                     <Image
                       src="/images/logo/arvyno-logo.png"
-                      alt="ARVYNO"
+                      alt="ARVYNO Logo"
                       fill
-                      className="object-cover"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div>
-                    <p className="font-serif text-base font-bold tracking-[0.2em] text-[#f8f8f6]">
+                    <p className="font-serif text-base font-bold tracking-[0.2em] text-[#f8f8f6] group-hover:text-[#c9a227] transition-colors leading-none">
                       ARVYNO
                     </p>
-                    <p className="text-[8px] tracking-[0.25em] text-[#c9a227]">
-                      WEAR YOUR IDENTITY
+                    <p className="text-[7.5px] tracking-[0.22em] text-[#c9a227] font-semibold uppercase mt-0.5 whitespace-nowrap">
+                      Wear Your Identity
                     </p>
                   </div>
-                </div>
+                </Link>
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   aria-label="Close navigation menu"
@@ -555,7 +593,9 @@ export function Navbar() {
                     <div className="pt-2 pb-1 space-y-2 animate-in fade-in slide-in-from-top-1 duration-200">
                       <div className="flex flex-col space-y-2">
                         {COLLECTION_ITEMS.map((item) => {
-                          const isActive = pathname === item.href;
+                          const isActive =
+                            pathname === item.href ||
+                            (Boolean(currentProductCat) && item.href === `/categories/${currentProductCat}`);
                           return (
                             <Link
                               key={item.href}
@@ -604,7 +644,7 @@ export function Navbar() {
                         onClick={() => setMobileMenuOpen(false)}
                         className="flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-[#c9a227] hover:text-black text-[#e5c76b] text-xs font-bold uppercase tracking-wider transition-all"
                       >
-                        <span>View All 13 Items</span>
+                        <span>View All {PRODUCTS.length} Items</span>
                         <ArrowRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>

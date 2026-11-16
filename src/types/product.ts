@@ -36,6 +36,7 @@ export interface Product {
 export type SortOption =
   | "featured"
   | "newest"
+  | "trending"
   | "price-asc"
   | "price-desc"
   | "rating"
